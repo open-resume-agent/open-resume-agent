@@ -1,5 +1,7 @@
 # Open Resume Agent (ORA)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24301609.svg)](https://doi.org/10.5281/zenodo.24301609) · [openresumeagent.org](https://openresumeagent.org)
+
 **An open spec that turns a person's career into a single, model-agnostic agent file: `resume-agent.md`.**
 
 ORA doesn't produce a resume. It produces an **agent**: one Markdown file that any AI model can load and act on. That agent answers questions about the person, assesses fit for a role, and **generates resumes on request** as Word (.docx), PDF, HTML, Markdown, plain text or JSON Resume. It stays truthful, follows the person's privacy limits and the law, and leaves an audit trail.
