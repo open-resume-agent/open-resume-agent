@@ -1,0 +1,744 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Industry profiles · Open Resume Agent</title><meta name="description" content="An open spec that turns a career into a model-agnostic AI agent file."><style>
+:root{--fg:#1d1d1f;--muted:#5b5b66;--accent:#1f4e79;--bg:#fff;--code:#f4f5f7;--line:#e3e5e8}
+@media (prefers-color-scheme:dark){:root{--fg:#e8e8ea;--muted:#a3a3ad;--accent:#7fb2e5;--bg:#111214;--code:#1c1e22;--line:#2b2e33}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+header{border-bottom:1px solid var(--line)}header .in,main{max-width:860px;margin:0 auto;padding:16px 20px}
+header .in{display:flex;gap:18px;align-items:center;flex-wrap:wrap}header a.brand{font-weight:700;color:var(--fg);text-decoration:none;margin-right:auto}
+nav a{color:var(--muted);text-decoration:none;font-size:15px}nav a:hover{color:var(--accent)}
+h1,h2,h3{line-height:1.25}h1{font-size:2rem}h2{margin-top:2.2rem;padding-bottom:.3rem;border-bottom:1px solid var(--line)}
+a{color:var(--accent)}code{background:var(--code);padding:.1em .35em;border-radius:4px;font-size:.92em}
+pre{background:var(--code);padding:14px;border-radius:8px;overflow:auto}pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;display:block;overflow:auto;font-size:.95em}th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
+blockquote{margin:0;padding-left:14px;border-left:3px solid var(--line);color:var(--muted)}
+footer{max-width:860px;margin:40px auto;padding:16px 20px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+</style></head><body><header><div class="in"><a class="brand" href="/">Open Resume Agent</a><nav><a href="/spec/">Spec</a> <a href="/profiles/">Profiles</a> <a href="/registry/">Registry</a> <a href="/schema/v0.3/resume-agent.schema.json">Schema</a> <a href="https://github.com/open-resume-agent/open-resume-agent">GitHub</a></nav></div></header><main><h1 id="ora-industry-profiles-v02">ORA Industry Profiles v0.2</h1>
+<p>Each profile adds industry-specific fields under <code>profiles.&lt;id&gt;</code>. All fields are optional unless marked <strong>req</strong>. Profile data follows the core claim, disclosure and compliance rules (SPEC §9).</p>
+<p>Each profile lists:
+- <strong>Fields</strong>: what the profile adds
+- <strong>Expected credentials</strong>: kinds validators warn about if missing (P2)
+- <strong>Sensitive by default</strong>: fields that are non-public unless a disclosure rule says otherwise
+- <strong>Typical commitments</strong>: topics the agent should hand off or set limits on
+- <strong>Where to verify</strong>: the kind of primary source a verifier checks</p>
+<hr />
+<h2 id="1-technology-software-data-it-security">1. <code>technology</code> — software, data, IT, security</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stacks</code></td>
+<td>string[]</td>
+<td>Languages and frameworks; link to <code>skills</code> ids where possible</td>
+</tr>
+<tr>
+<td><code>systemsScale</code></td>
+<td>object</td>
+<td><code>{ rps, dataVolume, users, regions }</code></td>
+</tr>
+<tr>
+<td><code>onCall</code></td>
+<td>object</td>
+<td><code>{ experience: bool, maxRotation: "1-in-N" }</code></td>
+</tr>
+<tr>
+<td><code>openSource</code></td>
+<td>object[]</td>
+<td><code>{ repo, role: maintainer\|contributor, evidence }</code></td>
+</tr>
+<tr>
+<td><code>securityClearanceRequiredOk</code></td>
+<td>bool</td>
+<td>Willing to obtain a clearance</td>
+</tr>
+<tr>
+<td><code>sfia</code></td>
+<td>object[]</td>
+<td><code>{ code, level 1–7 }</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Expected credentials:</strong> none</li>
+<li><strong>Sensitive by default:</strong> employer names under NDA (C7)</li>
+<li><strong>Typical commitments:</strong> IP assignment and moonlighting clauses go to handoff</li>
+<li><strong>Where to verify:</strong> repos, package registries, cloud certification validation pages</li>
+</ul>
+<h2 id="2-healthcare-nursing-medicine-allied-health-pharmacy">2. <code>healthcare</code> — nursing, medicine, allied health, pharmacy</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>discipline</code> <strong>req</strong></td>
+<td>enum</td>
+<td><code>rn</code>, <code>lpn</code>, <code>aprn</code>, <code>physician</code>, <code>pa</code>, <code>pharmacist</code>, <code>therapist</code>, <code>technologist</code>, <code>paramedic</code>, <code>dentist</code>, <code>other</code></td>
+</tr>
+<tr>
+<td><code>specialties</code></td>
+<td>string[]</td>
+<td>e.g. Emergency, ICU, Oncology</td>
+</tr>
+<tr>
+<td><code>boardCertifications</code></td>
+<td>credential id[]</td>
+<td></td>
+</tr>
+<tr>
+<td><code>patientPopulations</code></td>
+<td>enum[]</td>
+<td><code>neonatal</code>, <code>pediatric</code>, <code>adult</code>, <code>geriatric</code></td>
+</tr>
+<tr>
+<td><code>settings</code></td>
+<td>enum[]</td>
+<td><code>acute</code>, <code>ambulatory</code>, <code>long_term</code>, <code>home</code>, <code>telehealth</code>, <code>research</code></td>
+</tr>
+<tr>
+<td><code>ehrSystems</code></td>
+<td>string[]</td>
+<td>Epic, Cerner/Oracle Health, …</td>
+</tr>
+<tr>
+<td><code>procedures</code></td>
+<td>object[]</td>
+<td><code>{ name, count, period }</code> (counts only, no patient data)</td>
+</tr>
+<tr>
+<td><code>npi</code></td>
+<td>string</td>
+<td>US provider id; non-public by default</td>
+</tr>
+<tr>
+<td><code>compactLicensure</code></td>
+<td>object</td>
+<td>e.g. Nurse Licensure Compact multistate status</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Expected credentials:</strong> <code>license</code></li>
+<li><strong>Sensitive by default:</strong> <code>npi</code>, license numbers, malpractice history (the agent never answers this, see J2)</li>
+<li><strong>Typical commitments:</strong> shift type, float pool, on-call, per-diem and locum rates</li>
+<li><strong>Where to verify:</strong> state boards of nursing and medicine, national nurse-licensure databases, specialty boards</li>
+<li><strong>Hard rule:</strong> the agent MUST NOT include patient-identifying information in any answer, even if the owner put it in by mistake. Implementations SHOULD scrub it.</li>
+</ul>
+<h2 id="3-academic-research-faculty-postdoc-scientist">3. <code>academic</code> — research, faculty, postdoc, scientist</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>orcid</code></td>
+<td>string</td>
+<td><code>0000-0000-0000-0000</code></td>
+</tr>
+<tr>
+<td><code>researchAreas</code></td>
+<td>string[]</td>
+<td></td>
+</tr>
+<tr>
+<td><code>publications</code></td>
+<td>object[]</td>
+<td><code>{ doi, title, venue, year, creditRoles: CRediT[], peerReviewed }</code></td>
+</tr>
+<tr>
+<td><code>grants</code></td>
+<td>object[]</td>
+<td><code>{ funder, title, role: PI\|co-PI\|key_personnel, amount, currency, years }</code></td>
+</tr>
+<tr>
+<td><code>teaching</code></td>
+<td>object[]</td>
+<td><code>{ course, level, years }</code></td>
+</tr>
+<tr>
+<td><code>supervision</code></td>
+<td>object</td>
+<td><code>{ phd, masters, postdocs }</code> (counts)</td>
+</tr>
+<tr>
+<td><code>metrics</code></td>
+<td>object</td>
+<td><code>{ hIndex, citations, asOf, source }</code></td>
+</tr>
+<tr>
+<td><code>tenureStatus</code></td>
+<td>enum</td>
+<td><code>tenured</code>, <code>tenure_track</code>, <code>non_tenure</code>, <code>n/a</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>creditRoles</code> use the 14 CRediT roles (ANSI/NISO Z39.104-2022), optionally with a <code>lead</code>, <code>equal</code> or <code>supporting</code> qualifier.</li>
+<li><strong>Expected credentials:</strong> <code>degree</code></li>
+<li><strong>Typical commitments:</strong> start-up package, lab space and teaching load go to handoff</li>
+<li><strong>Where to verify:</strong> ORCID, DOI resolvers, funder award databases</li>
+</ul>
+<h2 id="4-legal-lawyers-paralegals-compliance">4. <code>legal</code> — lawyers, paralegals, compliance</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>barAdmissions</code></td>
+<td>credential id[]</td>
+<td>One credential per jurisdiction</td>
+</tr>
+<tr>
+<td><code>practiceAreas</code></td>
+<td>string[]</td>
+<td></td>
+</tr>
+<tr>
+<td><code>matters</code></td>
+<td>object[]</td>
+<td><code>{ type, role, outcome, confidential: true }</code> (always anonymized)</td>
+</tr>
+<tr>
+<td><code>clerkships</code></td>
+<td>object[]</td>
+<td></td>
+</tr>
+<tr>
+<td><code>languagesForPractice</code></td>
+<td>string[]</td>
+<td></td>
+</tr>
+<tr>
+<td><code>conflictsCheckRequired</code></td>
+<td>bool</td>
+<td>Default <code>true</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Expected credentials:</strong> <code>license</code> (bar admission) for attorneys</li>
+<li><strong>Sensitive by default:</strong> every <code>matters</code> entry. The agent MUST NOT name clients or opposing parties.</li>
+<li><strong>Typical commitments:</strong> book of business and portable clients go to handoff. Origination figures are restricted to <code>verified_employer</code>.</li>
+<li><strong>Where to verify:</strong> state bar and law-society member directories</li>
+</ul>
+<h2 id="5-finance-banking-investment-accounting-insurance">5. <code>finance</code> — banking, investment, accounting, insurance</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>registrations</code></td>
+<td>credential id[]</td>
+<td>Securities exams and registrations, CPA, CFA, actuarial, insurance producer</td>
+</tr>
+<tr>
+<td><code>aum</code></td>
+<td>metric</td>
+<td>Assets under management</td>
+</tr>
+<tr>
+<td><code>coverage</code></td>
+<td>string[]</td>
+<td>Sectors and regions covered</td>
+</tr>
+<tr>
+<td><code>dealExperience</code></td>
+<td>object[]</td>
+<td><code>{ type, size, currency, role, year, confidential }</code></td>
+</tr>
+<tr>
+<td><code>regulatoryHistory</code></td>
+<td>enum</td>
+<td>Always <code>handoff</code>; the agent never characterizes it</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Expected credentials:</strong> depends on role</li>
+<li><strong>Sensitive by default:</strong> deal names, client names, compensation structure</li>
+<li><strong>Typical commitments:</strong> non-solicit and garden leave go to handoff</li>
+<li><strong>Where to verify:</strong> public broker and adviser registries, state accountancy boards</li>
+</ul>
+<h2 id="6-aviation-pilots-atc-maintenance-cabin-crew">6. <code>aviation</code> — pilots, ATC, maintenance, cabin crew</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>certificates</code></td>
+<td>credential id[]</td>
+<td>e.g. ATP, commercial, A&amp;P mechanic, dispatcher</td>
+</tr>
+<tr>
+<td><code>ratings</code></td>
+<td>object[]</td>
+<td><code>{ type: type_rating\|instrument\|multi_engine, aircraft }</code></td>
+</tr>
+<tr>
+<td><code>flightHours</code></td>
+<td>object</td>
+<td><code>{ total, pic, sic, multiEngine, turbine, instrument, night, crossCountry, asOf }</code></td>
+</tr>
+<tr>
+<td><code>medicalClass</code></td>
+<td>enum</td>
+<td><code>first</code>, <code>second</code>, <code>third</code>, <code>none</code>. Health-adjacent, so owner-only by default (E1) unless volunteered.</td>
+</tr>
+<tr>
+<td><code>aircraftTypes</code></td>
+<td>string[]</td>
+<td></td>
+</tr>
+<tr>
+<td><code>operations</code></td>
+<td>enum[]</td>
+<td><code>part121</code>, <code>part135</code>, <code>part91</code>, <code>military</code>, <code>cargo</code>, <code>ga</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Expected credentials:</strong> <code>license</code> or <code>certification</code></li>
+<li><strong>Typical commitments:</strong> base or domicile, seniority and bidding, training bond</li>
+<li><strong>Where to verify:</strong> civil aviation authority airmen registries</li>
+</ul>
+<h2 id="7-trades-electrical-plumbing-hvac-welding-construction-manufacturing">7. <code>trades</code> — electrical, plumbing, HVAC, welding, construction, manufacturing</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>trade</code> <strong>req</strong></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>level</code></td>
+<td>enum</td>
+<td><code>apprentice</code>, <code>journeyman</code>, <code>master</code>, <code>foreman</code>, <code>superintendent</code></td>
+</tr>
+<tr>
+<td><code>apprenticeship</code></td>
+<td>object</td>
+<td><code>{ program, hoursCompleted, hoursRequired, sponsor }</code></td>
+</tr>
+<tr>
+<td><code>safetyCertifications</code></td>
+<td>credential id[]</td>
+<td>e.g. OSHA 10/30, first aid, confined space</td>
+</tr>
+<tr>
+<td><code>equipment</code></td>
+<td>string[]</td>
+<td>Machines and tools operated</td>
+</tr>
+<tr>
+<td><code>codes</code></td>
+<td>string[]</td>
+<td>e.g. NEC 2023, IPC</td>
+</tr>
+<tr>
+<td><code>ownTools</code></td>
+<td>bool</td>
+<td></td>
+</tr>
+<tr>
+<td><code>driversLicense</code></td>
+<td>object</td>
+<td><code>{ class, endorsements, jurisdiction }</code></td>
+</tr>
+<tr>
+<td><code>unionAffiliation</code></td>
+<td>object</td>
+<td>Protected (E1); owner-only unless volunteered</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Expected credentials:</strong> <code>license</code> for licensed trades</li>
+<li><strong>Typical commitments:</strong> per diem, travel and prevailing-wage work</li>
+<li><strong>Where to verify:</strong> state contractor and trade-licensing boards, apprenticeship registries</li>
+</ul>
+<h2 id="8-education-k-12-early-childhood-tutoring-training">8. <code>education</code> — K-12, early childhood, tutoring, training</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>certifications</code></td>
+<td>credential id[]</td>
+<td>Teaching licenses per jurisdiction</td>
+</tr>
+<tr>
+<td><code>gradeLevels</code></td>
+<td>string[]</td>
+<td></td>
+</tr>
+<tr>
+<td><code>subjects</code></td>
+<td>string[]</td>
+<td></td>
+</tr>
+<tr>
+<td><code>specialPopulations</code></td>
+<td>string[]</td>
+<td>e.g. ELL, special education, gifted</td>
+</tr>
+<tr>
+<td><code>curricula</code></td>
+<td>string[]</td>
+<td>e.g. IB, AP, Montessori</td>
+</tr>
+<tr>
+<td><code>backgroundClearance</code></td>
+<td>enum</td>
+<td>Always <code>handoff</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Expected credentials:</strong> <code>license</code></li>
+<li><strong>Where to verify:</strong> state education department license lookups</li>
+</ul>
+<h2 id="9-creative-design-writing-media-arts-architecture">9. <code>creative</code> — design, writing, media, arts, architecture</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>portfolio</code></td>
+<td>object[]</td>
+<td><code>{ title, url, role, year, client, rights: owned\|licensed\|nda\|work_for_hire, thumbnail }</code></td>
+</tr>
+<tr>
+<td><code>tools</code></td>
+<td>string[]</td>
+<td></td>
+</tr>
+<tr>
+<td><code>awards</code></td>
+<td>object[]</td>
+<td></td>
+</tr>
+<tr>
+<td><code>credits</code></td>
+<td>object[]</td>
+<td>Film, TV, game and publication credits: <code>{ title, role, year, verifiedSource }</code></td>
+</tr>
+<tr>
+<td><code>unions</code></td>
+<td>object[]</td>
+<td>Protected (E1); owner-only unless volunteered</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Hard rule:</strong> items with <code>rights: nda</code> MUST NOT be shown or described beyond <code>role</code> and <code>year</code>.</li>
+<li><strong>Typical commitments:</strong> day rate, usage rights, exclusivity</li>
+<li><strong>Where to verify:</strong> credit databases, publisher pages, registered-architect lookups</li>
+</ul>
+<h2 id="10-military-service-members-and-veterans">10. <code>military</code> — service members and veterans</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>branch</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>occupations</code></td>
+<td>object[]</td>
+<td><code>{ scheme: "moc", code, title, years }</code></td>
+</tr>
+<tr>
+<td><code>civilianCrosswalk</code></td>
+<td>classification[]</td>
+<td>e.g. from O*NET military crosswalk</td>
+</tr>
+<tr>
+<td><code>rank</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>clearance</code></td>
+<td>credential id</td>
+<td>R3 applies</td>
+</tr>
+<tr>
+<td><code>transcripts</code></td>
+<td>evidence id[]</td>
+<td>e.g. Joint Services Transcript</td>
+</tr>
+<tr>
+<td><code>dischargeType</code></td>
+<td>—</td>
+<td>Not stored; never collected</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>veteran_status</code> is protected (E1). Owners who want veteran-preference hiring opt in through <code>compliance.volunteer</code>.</li>
+<li><strong>Where to verify:</strong> military-to-civilian credentialing portals, transcript services</li>
+</ul>
+<h2 id="11-public_sector-government-ngos-international-organizations">11. <code>public_sector</code> — government, NGOs, international organizations</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gradeHistory</code></td>
+<td>object[]</td>
+<td><code>{ system, grade, step, years }</code> (e.g. GS, P-levels)</td>
+</tr>
+<tr>
+<td><code>serviceType</code></td>
+<td>enum</td>
+<td><code>competitive</code>, <code>excepted</code>, <code>ses</code>, <code>foreign_service</code>, <code>ngo</code>, <code>igo</code></td>
+</tr>
+<tr>
+<td><code>eligibility</code></td>
+<td>string[]</td>
+<td>Hiring authorities claimed; <strong>handoff</strong> for proof</td>
+</tr>
+<tr>
+<td><code>clearance</code></td>
+<td>credential id</td>
+<td>R3 applies</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Typical commitments:</strong> citizenship requirement goes to handoff (work authorization, J-rules)</li>
+</ul>
+<h2 id="12-sales-sales-business-development-customer-success">12. <code>sales</code> — sales, business development, customer success</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>quota</code></td>
+<td>object[]</td>
+<td><code>{ year, quota, attainment, currency }</code> (<code>sales_quota_attainment</code> metric)</td>
+</tr>
+<tr>
+<td><code>dealSize</code></td>
+<td>object</td>
+<td><code>{ avg, max, currency }</code></td>
+</tr>
+<tr>
+<td><code>segments</code></td>
+<td>enum[]</td>
+<td><code>smb</code>, <code>mid_market</code>, <code>enterprise</code>, <code>strategic</code>, <code>public</code></td>
+</tr>
+<tr>
+<td><code>motion</code></td>
+<td>enum[]</td>
+<td><code>inbound</code>, <code>outbound</code>, <code>channel</code>, <code>plg</code></td>
+</tr>
+<tr>
+<td><code>territories</code></td>
+<td>string[]</td>
+<td></td>
+</tr>
+<tr>
+<td><code>crmTools</code></td>
+<td>string[]</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Sensitive by default:</strong> named accounts are <code>verified_employer</code>-only</li>
+<li><strong>Typical commitments:</strong> OTE split and ramp go to handoff. Non-solicit goes to handoff.</li>
+</ul>
+<h2 id="13-executive-c-suite-vp-board-advisory">13. <code>executive</code> — C-suite, VP, board, advisory</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>scope</code></td>
+<td>object</td>
+<td><code>{ orgSize, budget, pnl, revenue, currency, geographies }</code></td>
+</tr>
+<tr>
+<td><code>boardSeats</code></td>
+<td>object[]</td>
+<td><code>{ org, role, committee, since }</code></td>
+</tr>
+<tr>
+<td><code>transformations</code></td>
+<td>object[]</td>
+<td><code>{ type: turnaround\|IPO\|M&amp;A\|scale-up\|digital, outcome, year }</code></td>
+</tr>
+<tr>
+<td><code>investorFacing</code></td>
+<td>bool</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reportingLine</code></td>
+<td>string</td>
+<td>e.g. "CEO", "Board"</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Typical commitments:</strong> equity, severance, change of control and D&amp;O cover always go to handoff</li>
+<li><strong>Where to verify:</strong> public filings, board pages</li>
+</ul>
+<h2 id="14-hospitality_retail-hotels-food-service-retail-customer-service">14. <code>hospitality_retail</code> — hotels, food service, retail, customer service</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>roles</code></td>
+<td>string[]</td>
+<td>e.g. barista, line cook, shift lead, store manager</td>
+</tr>
+<tr>
+<td><code>foodSafety</code></td>
+<td>credential id[]</td>
+<td>Food handler, manager certification</td>
+</tr>
+<tr>
+<td><code>posSystems</code></td>
+<td>string[]</td>
+<td></td>
+</tr>
+<tr>
+<td><code>volume</code></td>
+<td>object</td>
+<td><code>{ coversPerShift, storeRevenue, currency }</code></td>
+</tr>
+<tr>
+<td><code>availability</code></td>
+<td>object</td>
+<td><code>{ days, hours, minHoursPerWeek, maxHoursPerWeek }</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Typical commitments:</strong> schedule changes, split shifts and tip policy</li>
+</ul>
+<h2 id="15-logistics-drivers-warehouse-supply-chain">15. <code>logistics</code> — drivers, warehouse, supply chain</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>driversLicense</code></td>
+<td>object</td>
+<td><code>{ class: A\|B\|C\|…, endorsements: [H,N,P,S,T,X], jurisdiction }</code></td>
+</tr>
+<tr>
+<td><code>safetyRecord</code></td>
+<td>—</td>
+<td>Always <code>handoff</code>; never characterized by the agent</td>
+</tr>
+<tr>
+<td><code>equipment</code></td>
+<td>string[]</td>
+<td>Forklift, reach truck, pallet jack</td>
+</tr>
+<tr>
+<td><code>routes</code></td>
+<td>enum[]</td>
+<td><code>local</code>, <code>regional</code>, <code>otr</code></td>
+</tr>
+<tr>
+<td><code>systems</code></td>
+<td>string[]</td>
+<td>WMS and TMS tools</td>
+</tr>
+<tr>
+<td><code>homeTimePreference</code></td>
+<td>string</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Expected credentials:</strong> <code>license</code> for drivers</li>
+<li><strong>Typical commitments:</strong> drug testing consent, home time and pay basis (per mile or hourly)</li>
+</ul>
+<hr />
+<h2 id="combining-profiles">Combining profiles</h2>
+<p>An owner MAY use several profiles, e.g. <code>healthcare</code> + <code>academic</code> for a clinician-researcher, or <code>technology</code> + <code>executive</code> for a CTO. Role views (§8) then decide which profile leads for a given target role.</p>
+<h2 id="proposing-a-profile">Proposing a profile</h2>
+<p>Open a PR adding <code>profiles/&lt;id&gt;.schema.json</code>, a section in this file, an example under <code>examples/</code>, and at least three conformance cases.</p></main><footer>ORA v0.3 (draft) · Code MIT · Spec text CC BY 4.0 · <a href="https://github.com/open-resume-agent/open-resume-agent">Source</a></footer></body></html>

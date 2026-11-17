@@ -1,0 +1,32 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Home · Open Resume Agent</title><meta name="description" content="An open spec that turns a career into a model-agnostic AI agent file."><style>
+:root{--fg:#1d1d1f;--muted:#5b5b66;--accent:#1f4e79;--bg:#fff;--code:#f4f5f7;--line:#e3e5e8}
+@media (prefers-color-scheme:dark){:root{--fg:#e8e8ea;--muted:#a3a3ad;--accent:#7fb2e5;--bg:#111214;--code:#1c1e22;--line:#2b2e33}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+header{border-bottom:1px solid var(--line)}header .in,main{max-width:860px;margin:0 auto;padding:16px 20px}
+header .in{display:flex;gap:18px;align-items:center;flex-wrap:wrap}header a.brand{font-weight:700;color:var(--fg);text-decoration:none;margin-right:auto}
+nav a{color:var(--muted);text-decoration:none;font-size:15px}nav a:hover{color:var(--accent)}
+h1,h2,h3{line-height:1.25}h1{font-size:2rem}h2{margin-top:2.2rem;padding-bottom:.3rem;border-bottom:1px solid var(--line)}
+a{color:var(--accent)}code{background:var(--code);padding:.1em .35em;border-radius:4px;font-size:.92em}
+pre{background:var(--code);padding:14px;border-radius:8px;overflow:auto}pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;display:block;overflow:auto;font-size:.95em}th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
+blockquote{margin:0;padding-left:14px;border-left:3px solid var(--line);color:var(--muted)}
+footer{max-width:860px;margin:40px auto;padding:16px 20px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+</style></head><body><header><div class="in"><a class="brand" href="/">Open Resume Agent</a><nav><a href="/spec/">Spec</a> <a href="/profiles/">Profiles</a> <a href="/registry/">Registry</a> <a href="/schema/v0.3/resume-agent.schema.json">Schema</a> <a href="https://github.com/open-resume-agent/open-resume-agent">GitHub</a></nav></div></header><main><h1 id="open-resume-agent-ora">Open Resume Agent (ORA)</h1>
+<p><strong>An open spec that turns a person's career into a single, model-agnostic agent file: <code>resume-agent.md</code>.</strong></p>
+<p>Any AI platform can load it as a skill, a system prompt or project knowledge, or serve it as an MCP server. It answers questions about the person, assesses fit for a role, and generates resumes on request (Word, PDF, HTML, Markdown, JSON Resume). It stays truthful, private by default, and lawful.</p>
+<h2 id="read">Read</h2>
+<ul>
+<li><a href="/spec/">Specification v0.3</a></li>
+<li><a href="/profiles/">Industry profiles</a>: 15 industries, from healthcare to skilled trades</li>
+<li><a href="/registry/">Registry</a>: occupation, skill and evidence schemes</li>
+<li><a href="/schema/v0.3/resume-agent.schema.json">JSON Schema</a></li>
+</ul>
+<h2 id="use">Use</h2>
+<pre><code class="language-bash">git clone https://github.com/open-resume-agent/open-resume-agent &amp;&amp; cd open-resume-agent
+pip install -r requirements.txt
+python3 tools/build_md.py examples/tech-executive.resume-agent.json -o resume-agent.md
+python3 tools/render.py resume-agent.md --format docx
+python3 tools/ora_mcp.py resume-agent.md   # serve over MCP
+</code></pre>
+<h2 id="contribute">Contribute</h2>
+<p>Source, issues and discussions are on <a href="https://github.com/open-resume-agent/open-resume-agent">GitHub</a>. Normative changes go through RFCs. Code is MIT; spec text is CC BY 4.0.</p></main><footer>ORA v0.3 (draft) · Code MIT · Spec text CC BY 4.0 · <a href="https://github.com/open-resume-agent/open-resume-agent">Source</a></footer></body></html>
