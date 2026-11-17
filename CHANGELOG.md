@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- `glama.json` names the Glama directory maintainer, so the MCP server listing can be claimed and its Docker build configured. No spec or tool changes
+
 ## 0.3.1 — 2026-11-17
 - Spec site at https://openresumeagent.org (static HTML in `docs/`, built by `make site`). It serves the schema `$id` and the A2A extension URI
 - Reference tools packaged as **open-resume-agent** (PyPI; import name `ora_tools`): `ora` CLI (build, validate, render, card, mcp) and `ora-mcp`; `server.json` for the MCP Registry
