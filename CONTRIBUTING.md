@@ -9,7 +9,7 @@
 ## Process
 1. Open an issue that describes the problem before proposing a schema change.
 2. Changes to rules (C/R/D/V/P/F/T/E/J/Q/K/A/I) need a rationale and at least one conformance case.
-3. Regenerate the schema with `python3 tools/build_schema.py`. Then make sure `python3 tools/validate.py examples/*.json` and `python3 tests/test_validator.py` both pass.
+3. Run `make check` before every push. It regenerates the schema and agent files, fails if either is stale, then validates everything and runs all tests. Checks run locally; the repo has no hosted CI.
 4. Use only fictional people in examples. Never put real personal data in the repo.
 
 ## Versioning

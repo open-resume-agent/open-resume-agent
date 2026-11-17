@@ -67,7 +67,8 @@ python3 tools/render.py resume-agent.md --format docx --view rv-head-eng
 python3 tools/render.py resume-agent.md --format pdf --template ats
 python3 tools/render.py resume-agent.md --format json-resume
 
-make all   # schema → agents → samples → validate → tests
+make all     # schema → agents → samples → validate → tests
+make check   # local CI: stale-file check + validate + tests (run before pushing)
 ```
 
 MCP client config:

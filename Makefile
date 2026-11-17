@@ -3,7 +3,7 @@ TODAY ?= $(shell date +%F)
 PY = python3 -I
 EXAMPLES = $(wildcard examples/*.resume-agent.json)
 
-.PHONY: all schema agents samples validate test clean
+.PHONY: all schema agents samples validate test check clean
 all: schema agents samples validate test
 
 schema:
@@ -29,6 +29,12 @@ validate:
 test:
 	$(PY) tests/test_validator.py
 	$(PY) tests/test_agent_file.py
+
+# Local CI: fails if generated files are stale, then validates and tests
+check:
+	$(PY) tools/build_schema.py >/dev/null && git diff --exit-code schema/
+	$(MAKE) -s agents TODAY=2026-11-17 && git diff --exit-code agents/
+	$(MAKE) -s validate test TODAY=2026-11-17
 
 clean:
 	rm -rf samples/* build
