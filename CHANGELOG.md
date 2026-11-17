@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- `IMPLEMENTATIONS.md`: PopYourJob Builder is working (L1, signed agent files), no longer planned. No spec or tool changes
 - `glama.json` names the Glama directory maintainer, so the MCP server listing can be claimed and its Docker build configured. No spec or tool changes
 
 ## 0.3.1 — 2026-11-17
