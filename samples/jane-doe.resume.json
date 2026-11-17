@@ -1,0 +1,90 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+  "basics": {
+    "name": "Jane Doe",
+    "label": "Head of Engineering",
+    "email": "jane@example.com",
+    "url": "https://janedoe.dev",
+    "summary": "Engineering leader who rebuilt a payments platform for 5x lower latency and leads distributed teams.",
+    "location": {
+      "city": "Oakland",
+      "region": "CA",
+      "countryCode": "US"
+    },
+    "profiles": [
+      {
+        "network": "github",
+        "url": "https://github.com/janedoe"
+      }
+    ]
+  },
+  "work": [
+    {
+      "name": "Acme Payments",
+      "position": "Director of Engineering",
+      "startDate": "2021-02",
+      "highlights": [
+        "Rebuilt the payment authorization platform, cutting p99 latency from 900ms to 180ms."
+      ]
+    },
+    {
+      "name": "Globex",
+      "position": "Staff Software Engineer",
+      "startDate": "2015-06",
+      "endDate": "2021-01",
+      "highlights": [
+        "Designed the Kafka-based event backbone processing 2B events/day."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "State University",
+      "area": "Computer Science",
+      "studyType": "BS",
+      "endDate": "2009"
+    }
+  ],
+  "certificates": [
+    {
+      "name": "AWS Solutions Architect – Professional",
+      "issuer": "Amazon Web Services",
+      "date": "2024-03-01"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Distributed systems"
+    },
+    {
+      "name": "Go"
+    },
+    {
+      "name": "Kafka"
+    },
+    {
+      "name": "Postgres"
+    },
+    {
+      "name": "Kubernetes"
+    }
+  ],
+  "languages": [
+    {
+      "language": "en",
+      "fluency": "native"
+    },
+    {
+      "language": "es",
+      "fluency": "B2"
+    }
+  ],
+  "meta": {
+    "version": "2026.11.17-1",
+    "x-ora": {
+      "view": "rv-head-eng",
+      "audience": "public",
+      "footer": "Generated from an ORA record · 2026.11.17-1 · rv-head-eng"
+    }
+  }
+}

@@ -1,0 +1,577 @@
+{
+  "$schema": "https://openresumeagent.org/schema/v0.3/resume-agent.schema.json",
+  "ora": "0.3",
+  "resume": {
+    "basics": {
+      "name": "Jane Doe",
+      "label": "Engineering Leader",
+      "email": "jane@example.com",
+      "phone": "+1 555 010 0199",
+      "url": "https://janedoe.dev",
+      "location": {
+        "address": "12 Elm Street",
+        "city": "Oakland",
+        "region": "CA",
+        "countryCode": "US"
+      }
+    },
+    "work": [
+      {
+        "name": "Acme Payments",
+        "position": "Director of Engineering",
+        "startDate": "2021-02",
+        "highlights": [
+          "Rebuilt the payment authorization platform, cutting p99 latency from 900ms to 180ms.",
+          "Led a team of 22 engineers across 3 countries."
+        ]
+      },
+      {
+        "name": "Globex",
+        "position": "Staff Software Engineer",
+        "startDate": "2015-06",
+        "endDate": "2021-01",
+        "highlights": [
+          "Designed the Kafka-based event backbone processing 2B events/day."
+        ]
+      }
+    ],
+    "education": [
+      {
+        "institution": "State University",
+        "area": "Computer Science",
+        "studyType": "BS",
+        "endDate": "2009"
+      }
+    ],
+    "certificates": [
+      {
+        "name": "AWS Solutions Architect – Professional",
+        "issuer": "Amazon Web Services",
+        "date": "2024-03-01"
+      }
+    ]
+  },
+  "owner": {
+    "name": "Jane Doe",
+    "contact": "mailto:jane@example.com",
+    "verifiedHandles": [
+      {
+        "platform": "github",
+        "url": "https://github.com/janedoe"
+      }
+    ],
+    "did": "did:web:janedoe.dev",
+    "publicKey": {
+      "kty": "OKP",
+      "crv": "Ed25519",
+      "x": "EXAMPLE_PUBLIC_KEY"
+    }
+  },
+  "locale": {
+    "primaryLanguage": "en-US",
+    "languages": [
+      {
+        "tag": "en",
+        "proficiency": "native",
+        "scale": "native"
+      },
+      {
+        "tag": "es",
+        "proficiency": "B2",
+        "scale": "CEFR"
+      }
+    ],
+    "jurisdictions": [
+      "US-CA"
+    ],
+    "timeZone": "America/Los_Angeles"
+  },
+  "classification": {
+    "target": [
+      {
+        "scheme": "onet-soc-2019",
+        "code": "11-3021.00",
+        "label": "Computer and Information Systems Managers"
+      }
+    ],
+    "entries": [
+      {
+        "path": "/resume/work/0",
+        "industry": [
+          {
+            "scheme": "naics-2022",
+            "code": "522320",
+            "label": "Financial transactions processing"
+          }
+        ]
+      }
+    ]
+  },
+  "skills": [
+    {
+      "id": "sk-dist-sys",
+      "name": "Distributed systems",
+      "level": {
+        "value": 5,
+        "max": 5,
+        "scale": "ora-5"
+      },
+      "years": 11,
+      "lastUsed": "2026-10",
+      "evidence": [
+        "ev-latency-post"
+      ],
+      "assurance": "documented"
+    },
+    {
+      "id": "sk-go",
+      "name": "Go",
+      "level": {
+        "value": 4,
+        "max": 5,
+        "scale": "ora-5"
+      },
+      "years": 7,
+      "lastUsed": "2026-06",
+      "assurance": "self_asserted"
+    }
+  ],
+  "credentials": [
+    {
+      "id": "cr-aws-sap",
+      "kind": "certification",
+      "name": "AWS Solutions Architect – Professional",
+      "issuer": "Amazon Web Services",
+      "status": "active",
+      "issuedAt": "2024-03-01",
+      "expiresAt": "2027-03-01",
+      "verification": {
+        "method": "vc",
+        "lastChecked": "2026-11-01",
+        "result": "valid"
+      },
+      "evidence": [
+        "ev-aws-vc"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-aws-vc",
+      "type": "credential",
+      "uri": "https://janedoe.dev/vc/aws-sap.json",
+      "issuer": "Amazon Web Services",
+      "format": "w3c-vc-2.0"
+    },
+    {
+      "id": "ev-latency-post",
+      "type": "publication",
+      "uri": "https://janedoe.dev/blog/auth-latency"
+    },
+    {
+      "id": "ev-ref-cto",
+      "type": "reference",
+      "issuer": "Former CTO, Acme Payments",
+      "consent": {
+        "granted": true,
+        "date": "2026-10-01",
+        "scope": "verified_employer"
+      }
+    }
+  ],
+  "claims": [
+    {
+      "id": "cl-latency",
+      "path": "/resume/work/0/highlights/0",
+      "statement": "Rebuilt the payment authorization platform, cutting p99 latency from 900ms to 180ms.",
+      "evidence": [
+        "ev-latency-post"
+      ],
+      "assurance": "documented",
+      "metrics": [
+        {
+          "kind": "latency",
+          "value": 180,
+          "unit": "ms",
+          "baseline": 900
+        }
+      ],
+      "tags": [
+        "architecture"
+      ]
+    },
+    {
+      "id": "cl-team-size",
+      "path": "/resume/work/0/highlights/1",
+      "statement": "Led a team of 22 engineers across 3 countries.",
+      "evidence": [
+        "ev-ref-cto"
+      ],
+      "assurance": "documented",
+      "metrics": [
+        {
+          "kind": "team_size",
+          "value": 22,
+          "unit": "people"
+        }
+      ],
+      "validFrom": "2021-02",
+      "tags": [
+        "leadership"
+      ]
+    },
+    {
+      "id": "cl-events",
+      "path": "/resume/work/1/highlights/0",
+      "statement": "Designed the Kafka-based event backbone processing 2B events/day.",
+      "assurance": "self_asserted",
+      "metrics": [
+        {
+          "kind": "transactions",
+          "value": 2000000000,
+          "unit": "events",
+          "period": "P1D"
+        }
+      ],
+      "tags": [
+        "architecture",
+        "hands-on"
+      ]
+    },
+    {
+      "id": "cl-aws",
+      "path": "/resume/certificates/0",
+      "statement": "Holds the AWS Solutions Architect – Professional certification (2024).",
+      "evidence": [
+        "ev-aws-vc"
+      ],
+      "assurance": "verified",
+      "tags": [
+        "cloud"
+      ]
+    }
+  ],
+  "narratives": [
+    {
+      "id": "nr-why-leaving",
+      "topic": "reason_for_change",
+      "text": "Acme's platform rebuild is complete; I'm looking for a larger scaling challenge.",
+      "verbatim": true,
+      "audiences": [
+        "recruiter"
+      ]
+    }
+  ],
+  "roleViews": [
+    {
+      "id": "rv-head-eng",
+      "title": "Head of Engineering",
+      "target": [
+        {
+          "scheme": "onet-soc-2019",
+          "code": "11-3021.00"
+        }
+      ],
+      "summary": "Engineering leader who rebuilt a payments platform for 5x lower latency and leads distributed teams.",
+      "include": {
+        "claims": [
+          "cl-team-size",
+          "cl-latency",
+          "cl-aws"
+        ],
+        "profiles": [
+          "technology",
+          "executive"
+        ]
+      },
+      "emphasis": [
+        "leadership",
+        "architecture"
+      ],
+      "commitmentsOverride": {
+        "salary": {
+          "mode": "range",
+          "value": {
+            "min": 260000,
+            "currency": "USD",
+            "period": "year"
+          },
+          "audiences": [
+            "verified_employer"
+          ]
+        }
+      },
+      "default": true
+    },
+    {
+      "id": "rv-staff-eng",
+      "title": "Staff Software Engineer",
+      "target": [
+        {
+          "scheme": "onet-soc-2019",
+          "code": "15-1252.00"
+        }
+      ],
+      "summary": "Hands-on distributed-systems engineer.",
+      "include": {
+        "tags": [
+          "architecture",
+          "hands-on"
+        ],
+        "skills": [
+          "sk-dist-sys",
+          "sk-go"
+        ]
+      }
+    }
+  ],
+  "profiles": {
+    "technology": {
+      "stacks": [
+        "Go",
+        "Kafka",
+        "Postgres",
+        "Kubernetes"
+      ],
+      "systemsScale": {
+        "rps": 40000,
+        "regions": 3
+      },
+      "onCall": {
+        "experience": true,
+        "maxRotation": "1-in-6"
+      }
+    },
+    "executive": {
+      "scope": {
+        "orgSize": 22,
+        "budget": 6500000,
+        "currency": "USD",
+        "geographies": [
+          "US",
+          "MX",
+          "PL"
+        ]
+      },
+      "reportingLine": "CTO"
+    }
+  },
+  "preferences": {
+    "status": "open",
+    "employmentTypes": [
+      "full_time"
+    ],
+    "workArrangements": [
+      "remote",
+      "hybrid"
+    ],
+    "locations": [
+      "US-CA",
+      "Remote-US"
+    ],
+    "relocation": false,
+    "travelPercentMax": 20,
+    "seniority": [
+      "director",
+      "vp"
+    ],
+    "excludeEmployers": [
+      "Acme Payments"
+    ],
+    "noticePeriod": "P30D"
+  },
+  "disclosure": {
+    "audiences": [
+      "public",
+      "recruiter",
+      "verified_employer",
+      "owner"
+    ],
+    "default": "public",
+    "rules": [
+      {
+        "path": "/resume/basics/phone",
+        "audiences": [
+          "verified_employer"
+        ]
+      },
+      {
+        "claim": "cl-team-size",
+        "audiences": [
+          "recruiter"
+        ]
+      },
+      {
+        "path": "/profiles/executive/scope/orgSize",
+        "audiences": [
+          "recruiter"
+        ]
+      },
+      {
+        "path": "/profiles/executive/scope/budget",
+        "audiences": [
+          "verified_employer"
+        ]
+      }
+    ],
+    "never": [
+      "/resume/basics/location/address"
+    ],
+    "selectiveDisclosure": "sd-jwt"
+  },
+  "commitments": {
+    "salary": {
+      "mode": "range",
+      "value": {
+        "min": 220000,
+        "currency": "USD",
+        "period": "year"
+      },
+      "audiences": [
+        "verified_employer"
+      ]
+    },
+    "location": {
+      "mode": "share",
+      "value": [
+        "Remote",
+        "San Francisco Bay Area"
+      ]
+    },
+    "workAuthorization": {
+      "mode": "handoff"
+    },
+    "startDate": {
+      "mode": "share",
+      "value": "P30D"
+    },
+    "equity": {
+      "mode": "handoff"
+    },
+    "handoff": {
+      "triggers": [
+        "offer",
+        "negotiation",
+        "legal",
+        "accommodation",
+        "unknown_commitment"
+      ],
+      "channel": "mailto:jane@example.com",
+      "message": "I'll connect you with Jane directly for this.",
+      "sla": "P2D"
+    }
+  },
+  "compliance": {
+    "salaryHistory": "never",
+    "criminalHistory": "handoff",
+    "workAuthorization": "handoff",
+    "photo": "omit",
+    "volunteer": [],
+    "dataRights": {
+      "contact": "mailto:privacy@janedoe.dev",
+      "retentionDays": 365,
+      "erasureSupported": true
+    },
+    "firstPerson": false
+  },
+  "requesterPolicy": {
+    "authentication": {
+      "recruiter": [
+        "oauth2",
+        "a2a-signed"
+      ],
+      "verified_employer": [
+        "a2a-signed+domain"
+      ]
+    },
+    "allowAgents": true,
+    "allowHumans": true,
+    "rateLimit": {
+      "perRequesterPerDay": 50
+    }
+  },
+  "capabilities": [
+    {
+      "id": "answer",
+      "enabled": true
+    },
+    {
+      "id": "fit_assessment",
+      "enabled": true,
+      "input": "job_description"
+    },
+    {
+      "id": "tailor",
+      "enabled": true,
+      "output": [
+        "pdf",
+        "json-resume"
+      ]
+    },
+    {
+      "id": "form_fill",
+      "enabled": true,
+      "requiresOwnerApproval": true
+    },
+    {
+      "id": "submit",
+      "enabled": true,
+      "requiresOwnerApproval": true
+    },
+    {
+      "id": "schedule",
+      "enabled": false
+    }
+  ],
+  "interfaces": {
+    "chat": "https://janedoe.dev/agent",
+    "a2a": "https://janedoe.dev/.well-known/agent-card.json",
+    "mcp": {
+      "url": "https://janedoe.dev/mcp",
+      "transport": "streamable-http"
+    },
+    "jsonExport": "https://janedoe.dev/resume.json"
+  },
+  "outputs": {
+    "formats": [
+      "docx",
+      "pdf",
+      "html",
+      "md",
+      "txt",
+      "json-resume"
+    ],
+    "default": {
+      "format": "docx",
+      "template": "modern",
+      "view": null,
+      "audience": "public"
+    },
+    "templates": [
+      "ats",
+      "modern"
+    ],
+    "page": {
+      "size": "letter",
+      "maxPages": 2
+    },
+    "sections": [
+      "summary",
+      "experience",
+      "credentials",
+      "skills",
+      "education",
+      "languages"
+    ],
+    "footer": "Generated from an ORA record · {version} · {view}"
+  },
+  "audit": {
+    "log": "https://janedoe.dev/agent/audit",
+    "retentionDays": 365,
+    "ownerVisible": true
+  },
+  "meta": {
+    "version": "2026.11.17-1",
+    "lastModified": "2026-11-17T08:00:00Z"
+  }
+}

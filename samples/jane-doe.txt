@@ -1,0 +1,37 @@
+JANE DOE
+Head of Engineering · Oakland, CA · jane@example.com · https://janedoe.dev · github.com/janedoe
+
+
+SUMMARY
+Engineering leader who rebuilt a payments platform for 5x lower latency and leads distributed teams.
+
+
+EXPERIENCE
+Director of Engineering — Acme Payments · 2021-02 – Present
+  * Rebuilt the payment authorization platform, cutting p99 latency from 900ms to 180ms.
+
+Staff Software Engineer — Globex · 2015-06 – 2021-01
+  * Designed the Kafka-based event backbone processing 2B events/day.
+
+
+LEADERSHIP SCOPE
+  * Geographies: US, MX, PL
+
+
+LICENSES & CERTIFICATIONS
+  * AWS Solutions Architect – Professional — Amazon Web Services · Active · expires 2027-03-01
+
+
+SKILLS
+Distributed systems, Go, Kafka, Postgres, Kubernetes
+
+
+EDUCATION
+  * BS Computer Science, State University (2009)
+
+
+LANGUAGES
+en (native), es (B2)
+
+
+Generated from an ORA record · 2026.11.17-1 · rv-head-eng

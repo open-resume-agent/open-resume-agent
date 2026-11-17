@@ -1,0 +1,117 @@
+{
+  "name": "Jane Doe — Resume Agent",
+  "description": "AI agent representing Jane Doe's professional record under the Open Resume Agent spec. It is an AI, not the candidate.",
+  "version": "2026.11.17-1",
+  "provider": {
+    "organization": "Jane Doe",
+    "url": "https://janedoe.dev/agent"
+  },
+  "supportedInterfaces": [
+    {
+      "url": "https://janedoe.dev/agent",
+      "protocolBinding": "JSONRPC",
+      "protocolVersion": "1.0"
+    }
+  ],
+  "capabilities": {
+    "streaming": false,
+    "extensions": [
+      {
+        "uri": "https://openresumeagent.org/ext/v0.3",
+        "description": "ORA document and rules",
+        "required": false,
+        "params": {
+          "document": "https://janedoe.dev/resume.json"
+        }
+      }
+    ]
+  },
+  "defaultInputModes": [
+    "text/plain",
+    "application/json"
+  ],
+  "defaultOutputModes": [
+    "text/plain",
+    "application/json"
+  ],
+  "skills": [
+    {
+      "id": "ora.answer",
+      "name": "Answer",
+      "description": "Answers questions about the candidate's experience, grounded only in their ORA record.",
+      "tags": [
+        "resume",
+        "candidate",
+        "ora"
+      ],
+      "examples": [
+        "Is Jane Doe a fit for a Head of Engineering role?",
+        "Is Jane Doe a fit for a Staff Software Engineer role?"
+      ]
+    },
+    {
+      "id": "ora.fit_assessment",
+      "name": "Fit Assessment",
+      "description": "Assesses fit against a job description, with cited evidence and gaps.",
+      "tags": [
+        "resume",
+        "candidate",
+        "ora"
+      ],
+      "examples": [
+        "Is Jane Doe a fit for a Head of Engineering role?",
+        "Is Jane Doe a fit for a Staff Software Engineer role?"
+      ]
+    },
+    {
+      "id": "ora.tailor",
+      "name": "Tailor",
+      "description": "Produces a role-tailored resume from the record without altering facts.",
+      "tags": [
+        "resume",
+        "candidate",
+        "ora"
+      ],
+      "examples": [
+        "Is Jane Doe a fit for a Head of Engineering role?",
+        "Is Jane Doe a fit for a Staff Software Engineer role?"
+      ]
+    },
+    {
+      "id": "ora.form_fill",
+      "name": "Form Fill",
+      "description": "Pre-fills application forms; the owner approves before anything is sent.",
+      "tags": [
+        "resume",
+        "candidate",
+        "ora",
+        "requires-owner-approval"
+      ],
+      "examples": [
+        "Is Jane Doe a fit for a Head of Engineering role?",
+        "Is Jane Doe a fit for a Staff Software Engineer role?"
+      ]
+    },
+    {
+      "id": "ora.submit",
+      "name": "Submit",
+      "description": "Submits applications after explicit owner approval for each one.",
+      "tags": [
+        "resume",
+        "candidate",
+        "ora",
+        "requires-owner-approval"
+      ],
+      "examples": [
+        "Is Jane Doe a fit for a Head of Engineering role?",
+        "Is Jane Doe a fit for a Staff Software Engineer role?"
+      ]
+    }
+  ],
+  "securitySchemes": {
+    "oauth2": {
+      "type": "oauth2",
+      "description": "Recruiter / employer authentication"
+    }
+  }
+}

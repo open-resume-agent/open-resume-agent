@@ -1,0 +1,71 @@
+{
+  "ora": "0.3",
+  "resume": {
+    "basics": { "name": "Maria Santos", "label": "Registered Nurse — Emergency", "email": "maria@example.org", "phone": "+1 555 010 0142",
+                "location": { "city": "Sacramento", "region": "CA", "countryCode": "US" } },
+    "work": [
+      { "name": "Valley General Hospital", "position": "RN, Emergency Department", "startDate": "2020-03",
+        "highlights": ["Charge nurse for a 38-bed Level II trauma ED, 3 shifts per week.", "Precepted 14 new-graduate nurses."] },
+      { "name": "Lone Star Medical Center", "position": "RN, Med-Surg", "startDate": "2017-07", "endDate": "2020-02" }
+    ],
+    "education": [{ "institution": "Community State University", "area": "Nursing", "studyType": "BSN", "endDate": "2017" }]
+  },
+  "owner": { "name": "Maria Santos", "contact": "mailto:maria@example.org" },
+  "locale": { "primaryLanguage": "en-US", "languages": [{ "tag": "en", "proficiency": "native", "scale": "native" }, { "tag": "es", "proficiency": "C1", "scale": "CEFR" }], "jurisdictions": ["US-CA"] },
+  "classification": { "target": [{ "scheme": "onet-soc-2019", "code": "29-1141.00", "label": "Registered Nurses" }, { "scheme": "isco-08", "code": "2221" }],
+                      "entries": [{ "path": "/resume/work/0", "industry": [{ "scheme": "naics-2022", "code": "622110" }] }] },
+  "credentials": [
+    { "id": "cr-rn-ca", "kind": "license", "name": "Registered Nurse", "issuer": "California Board of Registered Nursing", "jurisdiction": "US-CA",
+      "identifier": "RN 000000", "status": "active", "issuedAt": "2020-02-15", "expiresAt": "2028-01-31",
+      "verification": { "method": "primary_source", "url": "https://search.dca.ca.gov/", "lastChecked": "2026-11-01", "result": "active_no_discipline" } },
+    { "id": "cr-rn-tx", "kind": "license", "name": "Registered Nurse", "issuer": "Texas Board of Nursing", "jurisdiction": "US-TX",
+      "identifier": "TX 000000", "status": "active", "issuedAt": "2017-07-01", "expiresAt": "2025-06-30",
+      "verification": { "method": "primary_source", "url": "https://www.bon.texas.gov/", "lastChecked": "2025-01-10", "result": "active" } },
+    { "id": "cr-cen", "kind": "certification", "name": "Certified Emergency Nurse (CEN)", "issuer": "BCEN", "status": "active", "expiresAt": "2028-09-30",
+      "verification": { "method": "document" }, "evidence": ["ev-cen"] },
+    { "id": "cr-acls", "kind": "certification", "name": "ACLS", "issuer": "American Heart Association", "status": "active", "expiresAt": "2027-04-30",
+      "verification": { "method": "document" }, "evidence": ["ev-acls"] }
+  ],
+  "evidence": [
+    { "id": "ev-cen", "type": "artifact", "uri": "https://maria.example.org/docs/cen.pdf", "format": "pdf" },
+    { "id": "ev-acls", "type": "artifact", "uri": "https://maria.example.org/docs/acls.pdf", "format": "pdf" },
+    { "id": "ev-ref-nm", "type": "reference", "issuer": "ED Nurse Manager, Valley General", "consent": { "granted": true, "date": "2026-09-01", "scope": "verified_employer" } }
+  ],
+  "claims": [
+    { "id": "cl-charge", "path": "/resume/work/0/highlights/0", "statement": "Charge nurse for a 38-bed Level II trauma emergency department.",
+      "evidence": ["ev-ref-nm"], "assurance": "documented", "metrics": [{ "kind": "beds", "value": 38, "unit": "beds" }], "tags": ["leadership", "emergency"] },
+    { "id": "cl-precept", "path": "/resume/work/0/highlights/1", "statement": "Precepted 14 new-graduate nurses.", "assurance": "self_asserted",
+      "metrics": [{ "kind": "x-preceptees", "value": 14, "unit": "nurses" }], "tags": ["education"] },
+    { "id": "cl-cen", "statement": "Certified Emergency Nurse (CEN), valid through September 2028.", "evidence": ["ev-cen"], "assurance": "documented", "validUntil": "2028-09-30" }
+  ],
+  "profiles": {
+    "healthcare": { "discipline": "rn", "specialties": ["Emergency", "Trauma"], "patientPopulations": ["pediatric", "adult", "geriatric"],
+                    "settings": ["acute"], "ehrSystems": ["Epic"], "boardCertifications": ["cr-cen"], "compactLicensure": { "name": "NLC", "multistate": false } }
+  },
+  "preferences": { "status": "actively_looking", "employmentTypes": ["full_time", "per_diem"], "workArrangements": ["onsite"], "locations": ["US-CA"],
+                   "schedule": { "shifts": ["night", "rotating"], "weekends": true, "onCall": "limited" },
+                   "rates": [{ "type": "hourly", "min": 85, "currency": "USD", "employmentType": "per_diem" }], "availableFrom": "2027-01-05" },
+  "disclosure": {
+    "audiences": ["public", "recruiter", "verified_employer", "owner"], "default": "public",
+    "rules": [
+      { "path": "/resume/basics/phone", "audiences": ["verified_employer"] },
+      { "credential": "cr-rn-ca", "fields": ["identifier"], "audiences": ["verified_employer"] },
+      { "credential": "cr-rn-tx", "fields": ["identifier"], "audiences": ["owner"] }
+    ],
+    "never": []
+  },
+  "commitments": {
+    "salary": { "mode": "range", "value": { "min": 72, "currency": "USD", "period": "hour" }, "audiences": ["recruiter"] },
+    "shiftDifferential": { "mode": "handoff" },
+    "floatPool": { "mode": "share", "value": "ED and ICU only" },
+    "handoff": { "triggers": ["offer", "negotiation", "accommodation", "unknown_commitment", "interview_scheduling"], "channel": "mailto:maria@example.org" }
+  },
+  "compliance": { "salaryHistory": "never", "criminalHistory": "handoff", "workAuthorization": "handoff", "photo": "omit", "volunteer": ["languages"] },
+  "capabilities": [
+    { "id": "answer", "enabled": true },
+    { "id": "fit_assessment", "enabled": true, "input": "job_description" },
+    { "id": "form_fill", "enabled": true, "requiresOwnerApproval": true },
+    { "id": "job_search", "enabled": true }
+  ],
+  "meta": { "version": "2026.11.17-1" }
+}

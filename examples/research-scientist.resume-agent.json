@@ -1,0 +1,346 @@
+{
+  "ora": "0.3",
+  "resumeUrl": "https://priya.example.edu/resume.json",
+  "owner": {
+    "name": "Dr. Priya Raman",
+    "contact": "mailto:priya@example.edu",
+    "verifiedHandles": [
+      {
+        "platform": "orcid",
+        "url": "https://orcid.org/0000-0002-1825-0097"
+      }
+    ]
+  },
+  "locale": {
+    "primaryLanguage": "en-GB",
+    "languages": [
+      {
+        "tag": "en",
+        "proficiency": "C2",
+        "scale": "CEFR"
+      },
+      {
+        "tag": "ta",
+        "proficiency": "native",
+        "scale": "native"
+      },
+      {
+        "tag": "de",
+        "proficiency": "B1",
+        "scale": "CEFR"
+      }
+    ],
+    "jurisdictions": [
+      "GB",
+      "DE"
+    ]
+  },
+  "classification": {
+    "target": [
+      {
+        "scheme": "isco-08",
+        "code": "2131",
+        "label": "Biologists, botanists, zoologists and related professionals"
+      },
+      {
+        "scheme": "onet-soc-2019",
+        "code": "19-1042.00",
+        "label": "Medical Scientists, Except Epidemiologists"
+      }
+    ]
+  },
+  "skills": [
+    {
+      "id": "sk-scrnaseq",
+      "name": "Single-cell RNA sequencing analysis",
+      "level": {
+        "value": 5,
+        "max": 5,
+        "scale": "ora-5"
+      },
+      "years": 8,
+      "evidence": [
+        "ev-pub-1"
+      ],
+      "assurance": "documented"
+    },
+    {
+      "id": "sk-python",
+      "name": "Python",
+      "level": {
+        "value": 4,
+        "max": 5,
+        "scale": "ora-5"
+      },
+      "assurance": "self_asserted"
+    }
+  ],
+  "credentials": [
+    {
+      "id": "cr-phd",
+      "kind": "degree",
+      "name": "PhD, Computational Biology",
+      "issuer": "Example University",
+      "status": "active",
+      "issuedAt": "2018-07",
+      "verification": {
+        "method": "vc"
+      },
+      "evidence": [
+        "ev-phd-edc"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-phd-edc",
+      "type": "credential",
+      "uri": "https://priya.example.edu/vc/phd.json",
+      "format": "europass-edc"
+    },
+    {
+      "id": "ev-pub-1",
+      "type": "publication",
+      "uri": "https://doi.org/10.0000/example.2024.001"
+    },
+    {
+      "id": "ev-grant-1",
+      "type": "url",
+      "uri": "https://funder.example.org/awards/ABC123"
+    }
+  ],
+  "claims": [
+    {
+      "id": "cl-pub-lead",
+      "statement": "Lead author of a 2024 peer-reviewed study on tumour microenvironment cell states, with lead roles in conceptualization and formal analysis.",
+      "evidence": [
+        "ev-pub-1"
+      ],
+      "assurance": "documented",
+      "tags": [
+        "research"
+      ]
+    },
+    {
+      "id": "cl-grant",
+      "statement": "Principal investigator on a three-year £450,000 early-career grant (2023–2026).",
+      "evidence": [
+        "ev-grant-1"
+      ],
+      "assurance": "documented",
+      "metrics": [
+        {
+          "kind": "grants_amount",
+          "value": 450000,
+          "currency": "GBP"
+        }
+      ],
+      "validFrom": "2023-01",
+      "validUntil": "2026-12-31",
+      "tags": [
+        "funding"
+      ]
+    },
+    {
+      "id": "cl-phd",
+      "statement": "PhD in Computational Biology (2018).",
+      "evidence": [
+        "ev-phd-edc"
+      ],
+      "assurance": "verified"
+    }
+  ],
+  "roleViews": [
+    {
+      "id": "rv-faculty",
+      "title": "Assistant Professor",
+      "include": {
+        "claims": [
+          "cl-pub-lead",
+          "cl-grant",
+          "cl-phd"
+        ],
+        "profiles": [
+          "academic"
+        ]
+      },
+      "emphasis": [
+        "research",
+        "funding"
+      ],
+      "default": true
+    },
+    {
+      "id": "rv-industry",
+      "title": "Senior Scientist, Computational Biology (industry)",
+      "target": [
+        {
+          "scheme": "onet-soc-2019",
+          "code": "19-1042.00"
+        }
+      ],
+      "include": {
+        "skills": [
+          "sk-scrnaseq",
+          "sk-python"
+        ],
+        "claims": [
+          "cl-pub-lead",
+          "cl-phd"
+        ]
+      },
+      "emphasis": [
+        "methods",
+        "software"
+      ]
+    }
+  ],
+  "profiles": {
+    "academic": {
+      "orcid": "0000-0002-1825-0097",
+      "researchAreas": [
+        "Cancer genomics",
+        "Single-cell methods"
+      ],
+      "publications": [
+        {
+          "doi": "10.0000/example.2024.001",
+          "title": "Cell states in the tumour microenvironment",
+          "venue": "Example Journal",
+          "year": 2024,
+          "peerReviewed": true,
+          "creditRoles": [
+            {
+              "role": "conceptualization",
+              "degree": "lead"
+            },
+            {
+              "role": "formal_analysis",
+              "degree": "lead"
+            },
+            {
+              "role": "software",
+              "degree": "equal"
+            }
+          ]
+        }
+      ],
+      "grants": [
+        {
+          "funder": "Example Research Council",
+          "title": "Early-career fellowship",
+          "role": "PI",
+          "amount": 450000,
+          "currency": "GBP",
+          "years": "2023-2026"
+        }
+      ],
+      "supervision": {
+        "phd": 2,
+        "masters": 5
+      },
+      "metrics": {
+        "hIndex": 14,
+        "citations": 1250,
+        "asOf": "2026-10-01",
+        "source": "Google Scholar"
+      },
+      "tenureStatus": "non_tenure"
+    }
+  },
+  "preferences": {
+    "status": "actively_looking",
+    "employmentTypes": [
+      "full_time"
+    ],
+    "workArrangements": [
+      "onsite",
+      "hybrid"
+    ],
+    "locations": [
+      "GB",
+      "DE",
+      "NL"
+    ],
+    "relocation": true
+  },
+  "disclosure": {
+    "audiences": [
+      "public",
+      "recruiter",
+      "verified_employer",
+      "owner"
+    ],
+    "default": "public",
+    "rules": [],
+    "never": []
+  },
+  "commitments": {
+    "startupPackage": {
+      "mode": "handoff"
+    },
+    "teachingLoad": {
+      "mode": "handoff"
+    },
+    "handoff": {
+      "triggers": [
+        "offer",
+        "negotiation",
+        "unknown_commitment"
+      ],
+      "channel": "mailto:priya@example.edu"
+    }
+  },
+  "compliance": {
+    "salaryHistory": "never",
+    "criminalHistory": "never",
+    "workAuthorization": "handoff",
+    "photo": "omit",
+    "dataRights": {
+      "contact": "mailto:priya@example.edu",
+      "retentionDays": 180,
+      "erasureSupported": true
+    }
+  },
+  "capabilities": [
+    {
+      "id": "answer",
+      "enabled": true
+    },
+    {
+      "id": "fit_assessment",
+      "enabled": true
+    },
+    {
+      "id": "tailor",
+      "enabled": true,
+      "output": [
+        "pdf"
+      ]
+    }
+  ],
+  "meta": {
+    "version": "2026.11.17-1"
+  },
+  "outputs": {
+    "formats": [
+      "docx",
+      "pdf",
+      "md"
+    ],
+    "default": {
+      "format": "pdf",
+      "template": "academic-cv",
+      "view": "rv-faculty",
+      "audience": "public"
+    },
+    "templates": [
+      "academic-cv",
+      "ats"
+    ],
+    "page": {
+      "size": "a4",
+      "maxPages": null
+    }
+  }
+}

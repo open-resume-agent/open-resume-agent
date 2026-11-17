@@ -1,0 +1,55 @@
+{
+  "ora": "0.3",
+  "resume": {
+    "basics": { "name": "Sam Okafor", "label": "Fleet & Logistics Supervisor", "email": "sam@example.com",
+                "location": { "city": "El Paso", "region": "TX", "countryCode": "US" } },
+    "work": [
+      { "name": "U.S. Army", "position": "Motor Transport Operator / Squad Leader", "startDate": "2016-01", "endDate": "2024-12",
+        "highlights": ["Led a 12-person transport squad; 400,000+ accident-free convoy miles.", "Managed maintenance schedules for 18 vehicles."] },
+      { "name": "Regional Freight LLC", "position": "Dispatcher", "startDate": "2025-02" }
+    ]
+  },
+  "owner": { "name": "Sam Okafor", "contact": "mailto:sam@example.com" },
+  "locale": { "primaryLanguage": "en-US", "jurisdictions": ["US-TX"] },
+  "classification": {
+    "target": [{ "scheme": "onet-soc-2019", "code": "53-1047.00", "label": "First-Line Supervisors of Transportation and Material Moving Workers" },
+               { "scheme": "onet-soc-2019", "code": "53-3032.00", "label": "Heavy and Tractor-Trailer Truck Drivers" }],
+    "entries": [{ "path": "/resume/work/0", "occupation": [{ "scheme": "moc", "code": "88M", "label": "Motor Transport Operator (Army)" }] }]
+  },
+  "credentials": [
+    { "id": "cr-cdl", "kind": "license", "name": "Commercial Driver's License Class A", "issuer": "Texas Department of Public Safety", "jurisdiction": "US-TX",
+      "identifier": "00000000", "status": "active", "expiresAt": "2030-05-01", "verification": { "method": "document" }, "evidence": ["ev-cdl"] },
+    { "id": "cr-clear", "kind": "clearance", "name": "Security clearance", "status": "inactive", "verification": { "method": "none" } }
+  ],
+  "evidence": [
+    { "id": "ev-cdl", "type": "artifact", "format": "pdf", "uri": "https://example.com/sam/cdl.pdf" },
+    { "id": "ev-jst", "type": "transcript", "issuer": "Joint Services Transcript", "uri": "https://example.com/sam/jst.pdf", "format": "pdf" }
+  ],
+  "claims": [
+    { "id": "cl-squad", "path": "/resume/work/0/highlights/0", "statement": "Led a 12-person transport squad with 400,000+ accident-free convoy miles.", "evidence": ["ev-jst"], "assurance": "documented",
+      "metrics": [{ "kind": "team_size", "value": 12, "unit": "people" }, { "kind": "x-accident-free-miles", "value": 400000, "unit": "miles" }], "tags": ["leadership", "safety"] },
+    { "id": "cl-fleet", "path": "/resume/work/0/highlights/1", "statement": "Managed maintenance schedules for an 18-vehicle fleet.", "assurance": "self_asserted", "tags": ["fleet"] },
+    { "id": "cl-cdl", "statement": "Holds a Class A CDL with hazmat and tanker endorsements.", "evidence": ["ev-cdl"], "assurance": "documented" }
+  ],
+  "roleViews": [
+    { "id": "rv-supervisor", "title": "Logistics Supervisor", "include": { "claims": ["cl-squad", "cl-fleet"], "profiles": ["military", "logistics"] }, "default": true },
+    { "id": "rv-driver", "title": "Class A CDL Driver", "include": { "claims": ["cl-cdl", "cl-squad"], "profiles": ["logistics"] } }
+  ],
+  "profiles": {
+    "military": { "branch": "U.S. Army", "occupations": [{ "scheme": "moc", "code": "88M", "title": "Motor Transport Operator", "years": "2016-2024" }],
+                  "civilianCrosswalk": [{ "scheme": "onet-soc-2019", "code": "53-3032.00" }], "rank": "Staff Sergeant", "clearance": "cr-clear", "transcripts": ["ev-jst"] },
+    "logistics": { "driversLicense": { "class": "A", "endorsements": ["H", "N", "X"], "jurisdiction": "US-TX" }, "safetyRecord": "handoff",
+                   "routes": ["local", "regional"], "systems": ["Samsara", "McLeod"], "homeTimePreference": "Home nightly" }
+  },
+  "preferences": { "status": "actively_looking", "employmentTypes": ["full_time"], "workArrangements": ["onsite"], "locations": ["US-TX", "US-NM"],
+                   "schedule": { "shifts": ["day", "rotating"], "weekends": true } },
+  "disclosure": { "audiences": ["public", "recruiter", "verified_employer", "owner"], "default": "public",
+                  "rules": [{ "credential": "cr-cdl", "fields": ["identifier"], "audiences": ["verified_employer"] },
+                            { "credential": "cr-clear", "audiences": ["verified_employer"] }],
+                  "never": [] },
+  "commitments": { "payBasis": { "mode": "share", "value": "Hourly preferred over per-mile" }, "drugTesting": { "mode": "share", "value": "consents_after_offer" },
+                   "handoff": { "triggers": ["offer", "negotiation", "accommodation", "unknown_commitment"], "channel": "mailto:sam@example.com" } },
+  "compliance": { "salaryHistory": "never", "criminalHistory": "handoff", "workAuthorization": "handoff", "photo": "omit", "volunteer": ["veteran_status"] },
+  "capabilities": [{ "id": "answer", "enabled": true }, { "id": "fit_assessment", "enabled": true }, { "id": "job_search", "enabled": true }],
+  "meta": { "version": "2026.11.17-1" }
+}

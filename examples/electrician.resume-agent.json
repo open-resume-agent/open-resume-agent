@@ -1,0 +1,56 @@
+{
+  "ora": "0.3",
+  "resume": {
+    "basics": { "name": "Dwayne Carter", "label": "Journeyman Electrician", "phone": "+1 555 010 0177", "email": "dwayne@example.net",
+                "location": { "city": "Columbus", "region": "OH", "countryCode": "US" } },
+    "work": [
+      { "name": "Buckeye Electric Co.", "position": "Journeyman Electrician", "startDate": "2022-04",
+        "highlights": ["Lead on commercial tenant fit-outs up to 40,000 sq ft.", "Zero recordable safety incidents in 4 years."] },
+      { "name": "Buckeye Electric Co.", "position": "Apprentice Electrician", "startDate": "2018-03", "endDate": "2022-03" }
+    ]
+  },
+  "owner": { "name": "Dwayne Carter", "contact": "mailto:dwayne@example.net" },
+  "locale": { "primaryLanguage": "en-US", "jurisdictions": ["US-OH"] },
+  "classification": { "target": [{ "scheme": "onet-soc-2019", "code": "47-2111.00", "label": "Electricians" }] },
+  "credentials": [
+    { "id": "cr-journeyman", "kind": "license", "name": "Journeyman Electrician", "issuer": "Licensing authority (example)", "jurisdiction": "US-OH",
+      "identifier": "EL-000000", "status": "active", "expiresAt": "2027-12-31", "verification": { "method": "primary_source", "lastChecked": "2026-10-15", "result": "active" } },
+    { "id": "cr-osha30", "kind": "certification", "name": "OSHA 30-Hour Construction", "issuer": "OSHA Outreach Training Program", "status": "active",
+      "verification": { "method": "document" }, "evidence": ["ev-osha"] },
+    { "id": "cr-appr", "kind": "apprenticeship", "name": "Registered Electrical Apprenticeship (completed)", "issuer": "Registered apprenticeship program", "status": "active",
+      "issuedAt": "2022-03", "verification": { "method": "document" }, "evidence": ["ev-appr"] }
+  ],
+  "evidence": [
+    { "id": "ev-osha", "type": "artifact", "uri": "https://example.net/dwayne/osha30.pdf", "format": "pdf" },
+    { "id": "ev-appr", "type": "transcript", "uri": "https://example.net/dwayne/apprenticeship.pdf", "format": "pdf" },
+    { "id": "ev-ref-foreman", "type": "reference", "issuer": "General Foreman, Buckeye Electric", "consent": { "granted": false } }
+  ],
+  "claims": [
+    { "id": "cl-fitouts", "path": "/resume/work/0/highlights/0", "statement": "Lead electrician on commercial tenant fit-outs up to 40,000 sq ft.", "assurance": "self_asserted", "tags": ["commercial"] },
+    { "id": "cl-safety", "path": "/resume/work/0/highlights/1", "statement": "Zero recordable safety incidents from 2022 to 2026.", "assurance": "self_asserted",
+      "metrics": [{ "kind": "safety_incidents", "value": 0, "period": "P4Y" }], "tags": ["safety"] },
+    { "id": "cl-appr", "statement": "Completed an 8,000-hour registered electrical apprenticeship in 2022.", "evidence": ["ev-appr"], "assurance": "documented",
+      "metrics": [{ "kind": "apprenticeship_hours", "value": 8000, "unit": "hours" }] }
+  ],
+  "profiles": {
+    "trades": { "trade": "Electrical", "level": "journeyman",
+                "apprenticeship": { "program": "Registered electrical apprenticeship", "hoursCompleted": 8000, "hoursRequired": 8000 },
+                "safetyCertifications": ["cr-osha30"], "equipment": ["Conduit benders", "Scissor lifts", "Thermal imaging camera"],
+                "codes": ["NEC 2023"], "ownTools": true, "driversLicense": { "class": "D", "jurisdiction": "US-OH" },
+                "unionAffiliation": { "local": "Example Local", "status": "member" } }
+  },
+  "preferences": { "status": "open", "employmentTypes": ["full_time", "contract"], "workArrangements": ["onsite"], "locations": ["US-OH"],
+                   "travelPercentMax": 30, "schedule": { "shifts": ["day"], "weekends": false },
+                   "rates": [{ "type": "hourly", "min": 38, "currency": "USD", "employmentType": "full_time" }] },
+  "disclosure": { "audiences": ["public", "recruiter", "verified_employer", "owner"], "default": "public",
+                  "rules": [{ "path": "/profiles/trades/unionAffiliation", "audiences": ["owner"] }, { "credential": "cr-journeyman", "fields": ["identifier"], "audiences": ["verified_employer"] },
+                            { "path": "/resume/basics/phone", "audiences": ["recruiter"] }],
+                  "never": [] },
+  "commitments": { "salary": { "mode": "range", "value": { "min": 38, "currency": "USD", "period": "hour" } }, "perDiem": { "mode": "handoff" },
+                   "drugTesting": { "mode": "share", "value": "consents_after_offer" },
+                   "handoff": { "triggers": ["offer", "negotiation", "unknown_commitment"], "channel": "mailto:dwayne@example.net" } },
+  "compliance": { "salaryHistory": "never", "criminalHistory": "handoff", "workAuthorization": "handoff", "photo": "omit" },
+  "capabilities": [{ "id": "answer", "enabled": true }, { "id": "fit_assessment", "enabled": true }, { "id": "job_search", "enabled": true },
+                   { "id": "form_fill", "enabled": true, "requiresOwnerApproval": true }],
+  "meta": { "version": "2026.11.17-1" }
+}
