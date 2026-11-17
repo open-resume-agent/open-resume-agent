@@ -3,8 +3,8 @@ TODAY ?= $(shell date +%F)
 PY = python3 -I
 EXAMPLES = $(wildcard examples/*.resume-agent.json)
 
-.PHONY: all schema agents samples validate test check clean
-all: schema agents samples validate test
+.PHONY: all schema agents samples site validate test check clean
+all: schema agents samples site validate test
 
 schema:
 	$(PY) tools/build_schema.py
@@ -23,6 +23,9 @@ samples: agents
 	$(PY) tools/render.py agents/electrician.resume-agent.md --format md -o samples/dwayne-carter.md --today $(TODAY)
 	$(PY) tools/render.py agents/veteran-logistics.resume-agent.md --format html --view rv-driver -o samples/sam-okafor-driver.html --today $(TODAY)
 
+site: schema
+	$(PY) tools/build_site.py
+
 validate:
 	$(PY) tools/validate.py $(EXAMPLES) agents/*.md --today $(TODAY)
 
@@ -34,6 +37,7 @@ test:
 check:
 	$(PY) tools/build_schema.py >/dev/null && git diff --exit-code schema/
 	$(MAKE) -s agents TODAY=2026-11-17 && git diff --exit-code agents/
+	$(PY) tools/build_site.py >/dev/null && git diff --exit-code docs/
 	$(MAKE) -s validate test TODAY=2026-11-17
 
 clean:

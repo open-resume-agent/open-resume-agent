@@ -1,0 +1,3010 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openresumeagent.org/schema/v0.3/resume-agent.schema.json",
+  "title": "Open Resume Agent v0.3",
+  "type": "object",
+  "required": [
+    "ora",
+    "owner",
+    "claims",
+    "disclosure",
+    "commitments",
+    "capabilities"
+  ],
+  "oneOf": [
+    {
+      "required": [
+        "resume"
+      ],
+      "not": {
+        "required": [
+          "resumeUrl"
+        ]
+      }
+    },
+    {
+      "required": [
+        "resumeUrl"
+      ],
+      "not": {
+        "required": [
+          "resume"
+        ]
+      }
+    }
+  ],
+  "patternProperties": {
+    "^x-": {}
+  },
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "ora": {
+      "enum": [
+        "0.2",
+        "0.3"
+      ]
+    },
+    "resume": {
+      "type": "object",
+      "description": "JSON Resume v1.0.0"
+    },
+    "resumeUrl": {
+      "type": "string",
+      "format": "uri"
+    },
+    "owner": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "preferredName": {
+          "type": "string"
+        },
+        "pronouns": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "contact": {
+          "type": "string",
+          "format": "uri"
+        },
+        "verifiedHandles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "platform": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "platform",
+              "url"
+            ],
+            "patternProperties": {
+              "^x-": {}
+            },
+            "additionalProperties": false
+          }
+        },
+        "did": {
+          "type": "string",
+          "pattern": "^did:"
+        },
+        "publicKey": {
+          "type": "object",
+          "required": [
+            "kty"
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "contact"
+      ],
+      "patternProperties": {
+        "^x-": {}
+      },
+      "additionalProperties": false
+    },
+    "locale": {
+      "type": "object",
+      "properties": {
+        "primaryLanguage": {
+          "type": "string"
+        },
+        "languages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "tag": {
+                "type": "string"
+              },
+              "proficiency": {
+                "type": "string",
+                "pattern": "^(native|[ABC][12]|ILR-[0-5]\\+?)$"
+              },
+              "scale": {
+                "enum": [
+                  "CEFR",
+                  "ILR",
+                  "native"
+                ]
+              }
+            },
+            "required": [
+              "tag",
+              "proficiency"
+            ],
+            "patternProperties": {
+              "^x-": {}
+            },
+            "additionalProperties": false
+          }
+        },
+        "jurisdictions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}(-[A-Z0-9]{1,3})?$"
+          }
+        },
+        "timeZone": {
+          "type": "string"
+        }
+      },
+      "patternProperties": {
+        "^x-": {}
+      },
+      "additionalProperties": false
+    },
+    "classification": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/code"
+          }
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "$ref": "#/$defs/pointer"
+              },
+              "occupation": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/code"
+                }
+              },
+              "industry": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/code"
+                }
+              }
+            },
+            "required": [
+              "path"
+            ],
+            "patternProperties": {
+              "^x-": {}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "patternProperties": {
+        "^x-": {}
+      },
+      "additionalProperties": false
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "name": {
+            "type": "string"
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/code"
+            }
+          },
+          "level": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number"
+              },
+              "max": {
+                "type": "number"
+              },
+              "scale": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value",
+              "max",
+              "scale"
+            ],
+            "patternProperties": {
+              "^x-": {}
+            },
+            "additionalProperties": false
+          },
+          "years": {
+            "type": "number"
+          },
+          "lastUsed": {
+            "type": "string",
+            "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$"
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/id"
+            }
+          },
+          "assurance": {
+            "$ref": "#/$defs/assurance"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "patternProperties": {
+          "^x-": {}
+        },
+        "additionalProperties": false
+      }
+    },
+    "credentials": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "kind": {
+            "anyOf": [
+              {
+                "enum": [
+                  "license",
+                  "certification",
+                  "registration",
+                  "clearance",
+                  "degree",
+                  "apprenticeship",
+                  "endorsement",
+                  "rating",
+                  "membership"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^x-"
+              }
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "issuer": {
+            "type": "string"
+          },
+          "jurisdiction": {
+            "type": "string"
+          },
+          "identifier": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "inactive",
+              "expired",
+              "suspended",
+              "revoked",
+              "pending",
+              "lapsed"
+            ]
+          },
+          "issuedAt": {
+            "type": "string",
+            "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$"
+          },
+          "expiresAt": {
+            "type": "string",
+            "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$"
+          },
+          "verification": {
+            "type": "object",
+            "properties": {
+              "method": {
+                "enum": [
+                  "vc",
+                  "primary_source",
+                  "issuer_api",
+                  "document",
+                  "none"
+                ]
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "lastChecked": {
+                "type": "string",
+                "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$"
+              },
+              "result": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "method"
+            ],
+            "patternProperties": {
+              "^x-": {}
+            },
+            "additionalProperties": false
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/id"
+            }
+          },
+          "compact": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "multistate": {
+                "type": "boolean"
+              }
+            },
+            "patternProperties": {
+              "^x-": {}
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "name",
+          "status"
+        ],
+        "patternProperties": {
+          "^x-": {}
+        },
+        "additionalProperties": false
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "type": {
+            "enum": [
+              "url",
+              "artifact",
+              "credential",
+              "reference",
+              "publication",
+              "repository",
+              "assessment",
+              "transcript"
+            ]
+          },
+          "uri": {
+            "type": "string",
+            "format": "uri"
+          },
+          "issuer": {
+            "type": "string"
+          },
+          "issuedAt": {
+            "type": "string",
+            "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$"
+          },
+          "digest": {
+            "type": "string",
+            "pattern": "^sha(256|384|512)-"
+          },
+          "format": {
+            "type": "string"
+          },
+          "consent": {
+            "type": "object",
+            "properties": {
+              "granted": {
+                "type": "boolean"
+              },
+              "date": {
+                "type": "string",
+                "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$"
+              },
+              "scope": {
+                "type": "string"
+              }
+            },
+            "patternProperties": {
+              "^x-": {}
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "id",
+          "type"
+        ],
+        "patternProperties": {
+          "^x-": {}
+        },
+        "additionalProperties": false
+      }
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/id"
+              },
+              "path": {
+                "$ref": "#/$defs/pointer"
+              },
+              "statement": {
+                "type": "string",
+                "minLength": 1
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/id"
+                }
+              },
+              "assurance": {
+                "$ref": "#/$defs/assurance"
+              },
+              "metrics": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/metric"
+                }
+              },
+              "validFrom": {
+                "type": "string",
+                "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$"
+              },
+              "validUntil": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "confidential": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "statement",
+              "assurance"
+            ],
+            "patternProperties": {
+              "^x-": {}
+            },
+            "additionalProperties": false
+          }
+        ],
+        "if": {
+          "properties": {
+            "assurance": {
+              "enum": [
+                "documented",
+                "verified"
+              ]
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "evidence"
+          ],
+          "properties": {
+            "evidence": {
+              "minItems": 1
+            }
+          }
+        }
+      }
+    },
+    "narratives": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "topic": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "verbatim": {
+            "type": "boolean"
+          },
+          "audiences": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "topic",
+          "text"
+        ],
+        "patternProperties": {
+          "^x-": {}
+        },
+        "additionalProperties": false
+      }
+    },
+    "roleViews": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "title": {
+            "type": "string"
+          },
+          "target": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/code"
+            }
+          },
+          "summary": {
+            "type": "string"
+          },
+          "include": {
+            "type": "object",
+            "properties": {
+              "claims": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/id"
+                }
+              },
+              "skills": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/id"
+                }
+              },
+              "credentials": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/id"
+                }
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "profiles": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "patternProperties": {
+              "^x-": {}
+            },
+            "additionalProperties": false
+          },
+          "exclude": {
+            "type": "object",
+            "properties": {
+              "claims": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/id"
+                }
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "patternProperties": {
+              "^x-": {}
+            },
+            "additionalProperties": false
+          },
+          "emphasis": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "commitmentsOverride": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/$defs/commitment"
+            }
+          },
+          "default": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "title"
+        ],
+        "patternProperties": {
+          "^x-": {}
+        },
+        "additionalProperties": false
+      }
+    },
+    "profiles": {
+      "type": "object",
+      "properties": {
+        "technology": {
+          "type": "object",
+          "properties": {
+            "stacks": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "systemsScale": {
+              "type": "object",
+              "properties": {
+                "rps": {
+                  "type": "number"
+                },
+                "dataVolume": {
+                  "type": "string"
+                },
+                "users": {
+                  "type": "number"
+                },
+                "regions": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "patternProperties": {
+                "^x-": {}
+              },
+              "additionalProperties": false
+            },
+            "onCall": {
+              "type": "object",
+              "properties": {
+                "experience": {
+                  "type": "boolean"
+                },
+                "maxRotation": {
+                  "type": "string"
+                }
+              },
+              "patternProperties": {
+                "^x-": {}
+              },
+              "additionalProperties": false
+            },
+            "openSource": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "repo": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "role": {
+                    "enum": [
+                      "maintainer",
+                      "contributor"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/id"
+                    }
+                  }
+                },
+                "required": [
+                  "repo"
+                ],
+                "patternProperties": {
+                  "^x-": {}
+                },
+                "additionalProperties": false
+              }
+            },
+            "securityClearanceRequiredOk": {
+              "type": "boolean"
+            },
+            "sfia": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  },
+                  "level": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 7
+                  }
+                },
+                "required": [
+                  "code",
+                  "level"
+                ],
+                "patternProperties": {
+                  "^x-": {}
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "patternProperties": {
+            "^x-": {}
+          },
+          "additionalProperties": false
+        },
+        "healthcare": {
+          "type": "object",
+          "properties": {
+            "discipline": {
+              "enum": [
+                "rn",
+                "lpn",
+                "aprn",
+                "physician",
+                "pa",
+                "pharmacist",
+                "therapist",
+                "technologist",
+                "paramedic",
+                "dentist",
+                "other"
+              ]
+            },
+            "specialties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "boardCertifications": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/id"
+              }
+            },
+            "patientPopulations": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "neonatal",
+                  "pediatric",
+                  "adult",
+                  "geriatric"
+                ]
+              }
+            },
+            "settings": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "acute",
+                  "ambulatory",
+                  "long_term",
+                  "home",
+                  "telehealth",
+                  "research"
+                ]
+              }
+            },
+            "ehrSystems": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "procedures": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "count": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "period": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "patternProperties": {
+                  "^x-": {}
+                },
+                "additionalProperties": false
+              }
+            },
+            "npi": {
+              "type": "string",
+              "pattern": "^\\d{10}$"
+            },
+            "compactLicensure": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "multistate": {
+                  "type": "boolean"
+                }
+              },
+              "patternProperties": {
+                "^x-": {}
+              },
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "discipline"
+          ],
+          "patternProperties": {
+            "^x-": {}
+          },
+          "additionalProperties": false
+        },
+        "academic": {
+          "type": "object",
+          "properties": {
+            "orcid": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{4}-\\d{4}-\\d{3}[\\dX]$"
+            },
+            "researchAreas": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "publications": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "doi": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "venue": {
+                    "type": "string"
+                  },
+                  "year": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "peerReviewed": {
+                    "type": "boolean"
+                  },
+                  "creditRoles": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "role": {
+                          "$ref": "#/$defs/creditRole"
+                        },
+                        "degree": {
+                          "enum": [
+                            "lead",
+                            "equal",
+                            "supporting"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "role"
+                      ],
+                      "patternProperties": {
+                        "^x-": {}
+                      },
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "title"
+                ],
+                "patternProperties": {
+                  "^x-": {}
+                },
+                "additionalProperties": false
+              }
+            },
+            "grants": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "funder": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "enum": [
+                      "PI",
+                      "co-PI",
+                      "key_personnel",
+                      "other"
+                    ]
+                  },
+                  "amount": {
+                    "type": "number"
+                  },
+                  "currency": {
+                    "$ref": "#/$defs/currency"
+                  },
+                  "years": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "funder"
+                ],
+                "patternProperties": {
+                  "^x-": {}
+                },
+                "additionalProperties": false
+              }
+            },
+            "teaching": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "course": {
+                    "type": "string"
+                  },
+                  "level": {
+                    "type": "string"
+                  },
+                  "years": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "course"
+                ],
+                "patternProperties": {
+                  "^x-": {}
+                },
+                "additionalProperties": false
+              }
+            },
+            "supervision": {
+              "type": "object",
+              "properties": {
+                "phd": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "masters": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "postdocs": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "patternProperties": {
+                "^x-": {}
+              },
+              "additionalProperties": false
+            },
+            "metrics": {
+              "type": "object",
+              "properties": {
+                "hIndex": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "citations": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "asOf": {
+                  "type": "string",
+                  "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$"
+                },
+                "source": {
+                  "type": "string"
+                }
+              },
+              "patternProperties": {
+                "^x-": {}
+              },
+              "additionalProperties": false
+            },
+            "tenureStatus": {
+              "enum": [
+                "tenured",
+                "tenure_track",
+                "non_tenure",
+                "n/a"
+              ]
+            }
+          },
+          "patternProperties": {
+            "^x-": {}
+          },
+          "additionalProperties": false
+        },
+        "legal": {
+          "type": "object",
+          "properties": {
+            "barAdmissions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/id"
+              }
+            },
+            "practiceAreas": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "matters": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string"
+                  },
+                  "outcome": {
+                    "type": "string"
+                  },
+                  "confidential": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "type",
+                  "confidential"
+                ],
+                "patternProperties": {
+                  "^x-": {}
+                },
+                "additionalProperties": false
+              }
+            },
+            "clerkships": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "court": {
+                    "type": "string"
+                  },
+                  "judge": {
+                    "type": "string"
+                  },
+                  "years": {
+                    "type": "string"
+                  }
+                },
+                "patternProperties": {
+                  "^x-": {}
+                },
+                "additionalProperties": false
+              }
+            },
+            "languagesForPractice": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "conflictsCheckRequired": {
+              "type": "boolean"
+            }
+          },
+          "patternProperties": {
+            "^x-": {}
+          },
+          "additionalProperties": false
+        },
+        "finance": {
+          "type": "object",
+          "properties": {
+            "registrations": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/id"
+              }
+            },
+            "aum": {
+              "$ref": "#/$defs/metric"
+            },
+            "coverage": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "dealExperience": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "size": {
+                    "type": "number"
+                  },
+                  "currency": {
+                    "$ref": "#/$defs/currency"
+                  },
+                  "role": {
+                    "type": "string"
+                  },
+                  "year": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "confidential": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "patternProperties": {
+                  "^x-": {}
+                },
+                "additionalProperties": false
+              }
+            },
+            "regulatoryHistory": {
+              "const": "handoff"
+            }
+          },
+          "patternProperties": {
+            "^x-": {}
+          },
+          "additionalProperties": false
+        },
+        "aviation": {
+          "type": "object",
+          "properties": {
+            "certificates": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/id"
+              }
+            },
+            "ratings": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "type_rating",
+                      "instrument",
+                      "multi_engine",
+                      "other"
+                    ]
+                  },
+                  "aircraft": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "patternProperties": {
+                  "^x-": {}
+                },
+                "additionalProperties": false
+              }
+            },
+            "flightHours": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "pic": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "sic": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "multiEngine": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "turbine": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "instrument": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "night": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "crossCountry": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "asOf": {
+                  "type": "string",
+                  "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$"
+                }
+              },
+              "required": [
+                "total"
+              ],
+              "patternProperties": {
+                "^x-": {}
+              },
+              "additionalProperties": false
+            },
+            "medicalClass": {
+              "enum": [
+                "first",
+                "second",
+                "third",
+                "none"
+              ]
+            },
+            "aircraftTypes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "operations": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "part121",
+                  "part135",
+                  "part91",
+                  "military",
+                  "cargo",
+                  "ga"
+                ]
+              }
+            }
+          },
+          "patternProperties": {
+            "^x-": {}
+          },
+          "additionalProperties": false
+        },
+        "trades": {
+          "type": "object",
+          "properties": {
+            "trade": {
+              "type": "string"
+            },
+            "level": {
+              "enum": [
+                "apprentice",
+                "journeyman",
+                "master",
+                "foreman",
+                "superintendent"
+              ]
+            },
+            "apprenticeship": {
+              "type": "object",
+              "properties": {
+                "program": {
+                  "type": "string"
+                },
+                "hoursCompleted": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "hoursRequired": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "sponsor": {
+                  "type": "string"
+                }
+              },
+              "patternProperties": {
+                "^x-": {}
+              },
+              "additionalProperties": false
+            },
+            "safetyCertifications": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/id"
+              }
+            },
+            "equipment": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "codes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "ownTools": {
+              "type": "boolean"
+            },
+            "driversLicense": {
+              "$ref": "#/$defs/driversLicense"
+            },
+            "unionAffiliation": {
+              "type": "object",
+              "properties": {
+                "local": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "patternProperties": {
+                "^x-": {}
+              },
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "trade"
+          ],
+          "patternProperties": {
+            "^x-": {}
+          },
+          "additionalProperties": false
+        },
+        "education": {
+          "type": "object",
+          "properties": {
+            "certifications": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/id"
+              }
+            },
+            "gradeLevels": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "subjects": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "specialPopulations": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "curricula": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "backgroundClearance": {
+              "const": "handoff"
+            }
+          },
+          "patternProperties": {
+            "^x-": {}
+          },
+          "additionalProperties": false
+        },
+        "creative": {
+          "type": "object",
+          "properties": {
+            "portfolio": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "role": {
+                    "type": "string"
+                  },
+                  "year": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "client": {
+                    "type": "string"
+                  },
+                  "rights": {
+                    "enum": [
+                      "owned",
+                      "licensed",
+                      "nda",
+                      "work_for_hire"
+                    ]
+                  },
+                  "thumbnail": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                },
+                "required": [
+                  "title",
+                  "rights"
+                ],
+                "patternProperties": {
+                  "^x-": {}
+                },
+                "additionalProperties": false
+              }
+            },
+            "tools": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "awards": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "year": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "issuer": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "patternProperties": {
+                  "^x-": {}
+                },
+                "additionalProperties": false
+              }
+            },
+            "credits": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string"
+                  },
+                  "year": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "verifiedSource": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                },
+                "required": [
+                  "title",
+                  "role"
+                ],
+                "patternProperties": {
+                  "^x-": {}
+                },
+                "additionalProperties": false
+              }
+            },
+            "unions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  }
+                },
+                "patternProperties": {
+                  "^x-": {}
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "patternProperties": {
+            "^x-": {}
+          },
+          "additionalProperties": false
+        },
+        "military": {
+          "type": "object",
+          "properties": {
+            "branch": {
+              "type": "string"
+            },
+            "occupations": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "scheme": {
+                    "const": "moc"
+                  },
+                  "code": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "years": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code"
+                ],
+                "patternProperties": {
+                  "^x-": {}
+                },
+                "additionalProperties": false
+              }
+            },
+            "civilianCrosswalk": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/code"
+              }
+            },
+            "rank": {
+              "type": "string"
+            },
+            "clearance": {
+              "$ref": "#/$defs/id"
+            },
+            "transcripts": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          },
+          "patternProperties": {
+            "^x-": {}
+          },
+          "additionalProperties": false
+        },
+        "public_sector": {
+          "type": "object",
+          "properties": {
+            "gradeHistory": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "system": {
+                    "type": "string"
+                  },
+                  "grade": {
+                    "type": "string"
+                  },
+                  "step": {
+                    "type": "string"
+                  },
+                  "years": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "system",
+                  "grade"
+                ],
+                "patternProperties": {
+                  "^x-": {}
+                },
+                "additionalProperties": false
+              }
+            },
+            "serviceType": {
+              "enum": [
+                "competitive",
+                "excepted",
+                "ses",
+                "foreign_service",
+                "ngo",
+                "igo"
+              ]
+            },
+            "eligibility": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "clearance": {
+              "$ref": "#/$defs/id"
+            }
+          },
+          "patternProperties": {
+            "^x-": {}
+          },
+          "additionalProperties": false
+        },
+        "sales": {
+          "type": "object",
+          "properties": {
+            "quota": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "year": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "quota": {
+                    "type": "number"
+                  },
+                  "attainment": {
+                    "type": "number"
+                  },
+                  "currency": {
+                    "$ref": "#/$defs/currency"
+                  }
+                },
+                "required": [
+                  "year",
+                  "attainment"
+                ],
+                "patternProperties": {
+                  "^x-": {}
+                },
+                "additionalProperties": false
+              }
+            },
+            "dealSize": {
+              "type": "object",
+              "properties": {
+                "avg": {
+                  "type": "number"
+                },
+                "max": {
+                  "type": "number"
+                },
+                "currency": {
+                  "$ref": "#/$defs/currency"
+                }
+              },
+              "patternProperties": {
+                "^x-": {}
+              },
+              "additionalProperties": false
+            },
+            "segments": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "smb",
+                  "mid_market",
+                  "enterprise",
+                  "strategic",
+                  "public"
+                ]
+              }
+            },
+            "motion": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "inbound",
+                  "outbound",
+                  "channel",
+                  "plg"
+                ]
+              }
+            },
+            "territories": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "crmTools": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "patternProperties": {
+            "^x-": {}
+          },
+          "additionalProperties": false
+        },
+        "executive": {
+          "type": "object",
+          "properties": {
+            "scope": {
+              "type": "object",
+              "properties": {
+                "orgSize": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "budget": {
+                  "type": "number"
+                },
+                "pnl": {
+                  "type": "number"
+                },
+                "revenue": {
+                  "type": "number"
+                },
+                "currency": {
+                  "$ref": "#/$defs/currency"
+                },
+                "geographies": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "patternProperties": {
+                "^x-": {}
+              },
+              "additionalProperties": false
+            },
+            "boardSeats": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "org": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string"
+                  },
+                  "committee": {
+                    "type": "string"
+                  },
+                  "since": {
+                    "type": "string",
+                    "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$"
+                  }
+                },
+                "required": [
+                  "org"
+                ],
+                "patternProperties": {
+                  "^x-": {}
+                },
+                "additionalProperties": false
+              }
+            },
+            "transformations": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "turnaround",
+                      "IPO",
+                      "M&A",
+                      "scale-up",
+                      "digital",
+                      "other"
+                    ]
+                  },
+                  "outcome": {
+                    "type": "string"
+                  },
+                  "year": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "patternProperties": {
+                  "^x-": {}
+                },
+                "additionalProperties": false
+              }
+            },
+            "investorFacing": {
+              "type": "boolean"
+            },
+            "reportingLine": {
+              "type": "string"
+            }
+          },
+          "patternProperties": {
+            "^x-": {}
+          },
+          "additionalProperties": false
+        },
+        "hospitality_retail": {
+          "type": "object",
+          "properties": {
+            "roles": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "foodSafety": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/id"
+              }
+            },
+            "posSystems": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "volume": {
+              "type": "object",
+              "properties": {
+                "coversPerShift": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "storeRevenue": {
+                  "type": "number"
+                },
+                "currency": {
+                  "$ref": "#/$defs/currency"
+                }
+              },
+              "patternProperties": {
+                "^x-": {}
+              },
+              "additionalProperties": false
+            },
+            "availability": {
+              "type": "object",
+              "properties": {
+                "days": {
+                  "type": "array",
+                  "items": {
+                    "enum": [
+                      "mon",
+                      "tue",
+                      "wed",
+                      "thu",
+                      "fri",
+                      "sat",
+                      "sun"
+                    ]
+                  }
+                },
+                "hours": {
+                  "type": "string"
+                },
+                "minHoursPerWeek": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "maxHoursPerWeek": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "patternProperties": {
+                "^x-": {}
+              },
+              "additionalProperties": false
+            }
+          },
+          "patternProperties": {
+            "^x-": {}
+          },
+          "additionalProperties": false
+        },
+        "logistics": {
+          "type": "object",
+          "properties": {
+            "driversLicense": {
+              "$ref": "#/$defs/driversLicense"
+            },
+            "safetyRecord": {
+              "const": "handoff"
+            },
+            "equipment": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "routes": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "local",
+                  "regional",
+                  "otr"
+                ]
+              }
+            },
+            "systems": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "homeTimePreference": {
+              "type": "string"
+            }
+          },
+          "patternProperties": {
+            "^x-": {}
+          },
+          "additionalProperties": false
+        }
+      },
+      "patternProperties": {
+        "^x-": {}
+      },
+      "additionalProperties": false
+    },
+    "preferences": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "actively_looking",
+            "open",
+            "not_looking",
+            "passive_referrals_only"
+          ]
+        },
+        "employmentTypes": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "full_time",
+              "part_time",
+              "contract",
+              "contract_to_hire",
+              "temporary",
+              "freelance",
+              "internship",
+              "apprenticeship",
+              "per_diem",
+              "locum",
+              "seasonal",
+              "gig",
+              "board",
+              "advisory",
+              "volunteer"
+            ]
+          }
+        },
+        "workArrangements": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "onsite",
+              "hybrid",
+              "remote"
+            ]
+          }
+        },
+        "locations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "relocation": {
+          "type": "boolean"
+        },
+        "travelPercentMax": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "schedule": {
+          "type": "object",
+          "properties": {
+            "shifts": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "day",
+                  "evening",
+                  "night",
+                  "rotating",
+                  "split"
+                ]
+              }
+            },
+            "weekends": {
+              "type": "boolean"
+            },
+            "onCall": {
+              "enum": [
+                "none",
+                "limited",
+                "yes"
+              ]
+            }
+          },
+          "patternProperties": {
+            "^x-": {}
+          },
+          "additionalProperties": false
+        },
+        "rates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "hourly",
+                  "daily",
+                  "weekly",
+                  "monthly",
+                  "per_project",
+                  "per_mile"
+                ]
+              },
+              "min": {
+                "type": "number"
+              },
+              "currency": {
+                "$ref": "#/$defs/currency"
+              },
+              "employmentType": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "min",
+              "currency"
+            ],
+            "patternProperties": {
+              "^x-": {}
+            },
+            "additionalProperties": false
+          }
+        },
+        "seniority": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "entry",
+              "mid",
+              "senior",
+              "lead",
+              "principal",
+              "manager",
+              "director",
+              "vp",
+              "c_level",
+              "board"
+            ]
+          }
+        },
+        "industries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/code"
+          }
+        },
+        "excludeEmployers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "noticePeriod": {
+          "type": "string"
+        },
+        "availableFrom": {
+          "type": "string",
+          "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$"
+        }
+      },
+      "patternProperties": {
+        "^x-": {}
+      },
+      "additionalProperties": false
+    },
+    "disclosure": {
+      "type": "object",
+      "properties": {
+        "audiences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "default": {
+          "type": "string"
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "audiences"
+            ],
+            "oneOf": [
+              {
+                "required": [
+                  "path"
+                ]
+              },
+              {
+                "required": [
+                  "claim"
+                ]
+              },
+              {
+                "required": [
+                  "credential"
+                ]
+              },
+              {
+                "required": [
+                  "skill"
+                ]
+              }
+            ],
+            "properties": {
+              "path": {
+                "$ref": "#/$defs/pointer"
+              },
+              "claim": {
+                "$ref": "#/$defs/id"
+              },
+              "credential": {
+                "$ref": "#/$defs/id"
+              },
+              "skill": {
+                "$ref": "#/$defs/id"
+              },
+              "fields": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "audiences": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "never": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pointer"
+          }
+        },
+        "selectiveDisclosure": {
+          "enum": [
+            "sd-jwt",
+            "bbs",
+            "none"
+          ]
+        }
+      },
+      "required": [
+        "audiences",
+        "default"
+      ],
+      "patternProperties": {
+        "^x-": {}
+      },
+      "additionalProperties": false
+    },
+    "commitments": {
+      "type": "object",
+      "required": [
+        "handoff"
+      ],
+      "properties": {
+        "handoff": {
+          "type": "object",
+          "properties": {
+            "triggers": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "channel": {
+              "type": "string",
+              "format": "uri"
+            },
+            "message": {
+              "type": "string"
+            },
+            "sla": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "channel"
+          ],
+          "patternProperties": {
+            "^x-": {}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/commitment"
+      }
+    },
+    "compliance": {
+      "type": "object",
+      "properties": {
+        "salaryHistory": {
+          "enum": [
+            "never",
+            "handoff"
+          ]
+        },
+        "criminalHistory": {
+          "enum": [
+            "never",
+            "handoff"
+          ]
+        },
+        "workAuthorization": {
+          "enum": [
+            "share",
+            "handoff",
+            "never"
+          ]
+        },
+        "photo": {
+          "enum": [
+            "omit",
+            "public",
+            "audience-restricted"
+          ]
+        },
+        "volunteer": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "age",
+              "race_ethnicity",
+              "national_origin",
+              "religion",
+              "sex",
+              "gender_identity",
+              "sexual_orientation",
+              "family_status",
+              "disability",
+              "marital_status",
+              "veteran_status",
+              "union_membership",
+              "political_views",
+              "languages"
+            ]
+          }
+        },
+        "dataRights": {
+          "type": "object",
+          "properties": {
+            "contact": {
+              "type": "string",
+              "format": "uri"
+            },
+            "retentionDays": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "erasureSupported": {
+              "type": "boolean"
+            }
+          },
+          "patternProperties": {
+            "^x-": {}
+          },
+          "additionalProperties": false
+        },
+        "firstPerson": {
+          "type": "boolean"
+        }
+      },
+      "patternProperties": {
+        "^x-": {}
+      },
+      "additionalProperties": false
+    },
+    "requesterPolicy": {
+      "type": "object",
+      "properties": {
+        "authentication": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "allowAgents": {
+          "type": "boolean"
+        },
+        "allowHumans": {
+          "type": "boolean"
+        },
+        "rateLimit": {
+          "type": "object",
+          "properties": {
+            "perRequesterPerDay": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "patternProperties": {
+            "^x-": {}
+          },
+          "additionalProperties": false
+        },
+        "blockDomains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requireJobDescription": {
+          "type": "boolean"
+        }
+      },
+      "patternProperties": {
+        "^x-": {}
+      },
+      "additionalProperties": false
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "anyOf": [
+                  {
+                    "enum": [
+                      "answer",
+                      "fit_assessment",
+                      "tailor",
+                      "form_fill",
+                      "submit",
+                      "schedule",
+                      "reference_request",
+                      "job_search"
+                    ]
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^x-"
+                  }
+                ]
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "input": {
+                "type": "string"
+              },
+              "output": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "requiresOwnerApproval": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "enabled"
+            ],
+            "patternProperties": {
+              "^x-": {}
+            },
+            "additionalProperties": false
+          }
+        ],
+        "if": {
+          "properties": {
+            "id": {
+              "enum": [
+                "submit",
+                "reference_request"
+              ]
+            },
+            "enabled": {
+              "const": true
+            }
+          },
+          "required": [
+            "id",
+            "enabled"
+          ]
+        },
+        "then": {
+          "required": [
+            "requiresOwnerApproval"
+          ],
+          "properties": {
+            "requiresOwnerApproval": {
+              "const": true
+            }
+          }
+        }
+      }
+    },
+    "interfaces": {
+      "type": "object",
+      "properties": {
+        "chat": {
+          "type": "string",
+          "format": "uri"
+        },
+        "a2a": {
+          "type": "string",
+          "format": "uri"
+        },
+        "mcp": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "transport": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "url"
+          ],
+          "patternProperties": {
+            "^x-": {}
+          },
+          "additionalProperties": false
+        },
+        "jsonExport": {
+          "type": "string",
+          "format": "uri"
+        },
+        "humanReadable": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "patternProperties": {
+        "^x-": {}
+      },
+      "additionalProperties": false
+    },
+    "outputs": {
+      "type": "object",
+      "properties": {
+        "formats": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "docx",
+              "pdf",
+              "html",
+              "md",
+              "txt",
+              "json-resume"
+            ]
+          }
+        },
+        "default": {
+          "type": "object",
+          "properties": {
+            "format": {
+              "enum": [
+                "docx",
+                "pdf",
+                "html",
+                "md",
+                "txt",
+                "json-resume"
+              ]
+            },
+            "template": {
+              "type": "string"
+            },
+            "view": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "audience": {
+              "type": "string"
+            }
+          },
+          "patternProperties": {
+            "^x-": {}
+          },
+          "additionalProperties": false
+        },
+        "templates": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "enum": [
+                  "ats",
+                  "modern",
+                  "academic-cv"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^x-"
+              }
+            ]
+          }
+        },
+        "page": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "enum": [
+                "letter",
+                "a4"
+              ]
+            },
+            "maxPages": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1
+            }
+          },
+          "patternProperties": {
+            "^x-": {}
+          },
+          "additionalProperties": false
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "summary",
+              "experience",
+              "credentials",
+              "skills",
+              "profiles",
+              "education",
+              "languages"
+            ]
+          }
+        },
+        "footer": {
+          "type": "string"
+        }
+      },
+      "patternProperties": {
+        "^x-": {}
+      },
+      "additionalProperties": false
+    },
+    "audit": {
+      "type": "object",
+      "properties": {
+        "log": {
+          "type": "string",
+          "format": "uri"
+        },
+        "retentionDays": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ownerVisible": {
+          "type": "boolean"
+        }
+      },
+      "patternProperties": {
+        "^x-": {}
+      },
+      "additionalProperties": false
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "lastModified": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "signature": {
+          "type": "object",
+          "properties": {
+            "alg": {
+              "type": "string"
+            },
+            "kid": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "alg",
+            "value"
+          ],
+          "patternProperties": {
+            "^x-": {}
+          },
+          "additionalProperties": false
+        }
+      },
+      "patternProperties": {
+        "^x-": {}
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "pointer": {
+      "type": "string",
+      "pattern": "^(/[^/]*)*$"
+    },
+    "assurance": {
+      "enum": [
+        "self_asserted",
+        "documented",
+        "verified"
+      ]
+    },
+    "currency": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "code": {
+      "type": "object",
+      "properties": {
+        "scheme": {
+          "type": "string",
+          "pattern": "^([a-z0-9-]+|x-.+)$"
+        },
+        "code": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "scheme",
+        "code"
+      ],
+      "patternProperties": {
+        "^x-": {}
+      },
+      "additionalProperties": false
+    },
+    "metric": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "anyOf": [
+            {
+              "enum": [
+                "team_size",
+                "direct_reports",
+                "budget",
+                "revenue",
+                "cost_savings",
+                "users",
+                "customers",
+                "transactions",
+                "uptime",
+                "latency",
+                "patients",
+                "beds",
+                "caseload",
+                "students",
+                "publications",
+                "citations",
+                "grants_amount",
+                "projects",
+                "flight_hours",
+                "apprenticeship_hours",
+                "sales_quota_attainment",
+                "aum",
+                "nps",
+                "safety_incidents"
+              ]
+            },
+            {
+              "type": "string",
+              "pattern": "^x-"
+            }
+          ]
+        },
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "currency": {
+          "$ref": "#/$defs/currency"
+        },
+        "period": {
+          "type": "string"
+        },
+        "baseline": {
+          "type": "number"
+        },
+        "asOf": {
+          "type": "string",
+          "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$"
+        }
+      },
+      "required": [
+        "kind",
+        "value"
+      ],
+      "patternProperties": {
+        "^x-": {}
+      },
+      "additionalProperties": false
+    },
+    "commitment": {
+      "type": "object",
+      "required": [
+        "mode"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "share",
+            "range",
+            "handoff",
+            "never"
+          ]
+        },
+        "value": {},
+        "audiences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "enum": [
+                  "share",
+                  "range"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "value"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "range"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "object",
+                "required": [
+                  "min"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "driversLicense": {
+      "type": "object",
+      "properties": {
+        "class": {
+          "type": "string"
+        },
+        "endorsements": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "jurisdiction": {
+          "type": "string"
+        }
+      },
+      "patternProperties": {
+        "^x-": {}
+      },
+      "additionalProperties": false
+    },
+    "creditRole": {
+      "enum": [
+        "conceptualization",
+        "data_curation",
+        "formal_analysis",
+        "funding_acquisition",
+        "investigation",
+        "methodology",
+        "project_administration",
+        "resources",
+        "software",
+        "supervision",
+        "validation",
+        "visualization",
+        "writing_original_draft",
+        "writing_review_editing"
+      ]
+    }
+  }
+}

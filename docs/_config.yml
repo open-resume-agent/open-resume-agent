@@ -1,0 +1,6 @@
+title: Open Resume Agent (ORA)
+description: An open spec that turns a career into a model-agnostic AI agent file.
+theme: jekyll-theme-cayman
+github:
+  repository_url: https://github.com/open-resume-agent/open-resume-agent
+include: [.well-known]
