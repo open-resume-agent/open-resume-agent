@@ -6,3 +6,5 @@ build/
 ora-out/
 .DS_Store
 *.private.md
+dist/
+*.egg-info/

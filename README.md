@@ -47,7 +47,16 @@ See `agents/tech-executive.resume-agent.md` for a full example.
 - **Compliance defaults**: says it's an AI, never shares protected characteristics or salary history, hands off criminal history and accommodation questions, never makes binding commitments
 - **Conformance**: L1 (valid) / L2 (faithful: 48 behavior cases) / L3 (verifiable)
 
-## Quick start
+## Install
+
+```bash
+pip install "ora-tools[mcp]"     # CLI: ora build | validate | render | card | mcp
+```
+
+<!-- MCP Registry ownership marker -->
+mcp-name: io.github.open-resume-agent/ora-mcp
+
+## Quick start (from the repo)
 
 ```bash
 pip install jsonschema python-docx reportlab mcp

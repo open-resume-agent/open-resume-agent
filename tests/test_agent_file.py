@@ -1,8 +1,8 @@
 """Agent-file (M1–M8), rendering (O1–O7) and MCP tests.  Run: python3 tests/test_agent_file.py"""
 import asyncio, datetime, json, os, pathlib, re, subprocess, sys, tempfile, zipfile
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT / "tools"))
-import ora_core as core, build_md, render, validate  # noqa: E402
+sys.path.insert(0, str(ROOT))
+from ora_tools import ora_core as core, build_md, render, validate  # noqa: E402
 
 TODAY = datetime.date(2026, 11, 17)
 SRC = {p.stem.split(".")[0]: json.loads(p.read_text()) for p in (ROOT / "examples").glob("*.resume-agent.json")}

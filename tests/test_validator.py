@@ -1,8 +1,8 @@
 """Run: python3 -m pytest tests  (or python3 tests/test_validator.py)"""
 import copy, datetime, json, pathlib, sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT / "tools"))
-from validate import check  # noqa: E402
+sys.path.insert(0, str(ROOT))
+from ora_tools.validate import check  # noqa: E402
 
 TODAY = datetime.date(2026, 11, 17)
 EX = {p.stem.split(".")[0]: json.loads(p.read_text()) for p in (ROOT / "examples").glob("*.resume-agent.json")}

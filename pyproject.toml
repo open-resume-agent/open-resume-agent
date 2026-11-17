@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ora-tools"
+version = "0.3.0"
+description = "Reference tools for Open Resume Agent (ORA): compile, validate and render model-agnostic resume agent files, and serve them over MCP."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{ name = "Sangamesh Hiremath" }]
+keywords = ["resume", "ai-agents", "mcp", "model-context-protocol", "json-resume", "specification"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Topic :: Office/Business",
+  "Topic :: Software Development :: Libraries",
+]
+dependencies = ["jsonschema>=4.20", "python-docx>=1.1", "reportlab>=4.0"]
+
+[project.optional-dependencies]
+mcp = ["mcp>=1.10"]
+site = ["markdown>=3.5"]
+
+[project.scripts]
+ora = "ora_tools.cli:main"
+ora-mcp = "ora_tools.cli:mcp_main"
+
+[project.urls]
+Homepage = "https://openresumeagent.org"
+Repository = "https://github.com/open-resume-agent/open-resume-agent"
+Specification = "https://openresumeagent.org/spec/"
+Issues = "https://github.com/open-resume-agent/open-resume-agent/issues"
+
+[tool.setuptools]
+packages = ["ora_tools"]
+
+[tool.setuptools.package-data]
+ora_tools = ["schema.json"]

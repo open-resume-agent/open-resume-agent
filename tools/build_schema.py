@@ -224,6 +224,7 @@ schema = {
   },
 }
 
-out = pathlib.Path(__file__).resolve().parent.parent / "schema" / "resume-agent.schema.json"
-out.write_text(json.dumps(schema, indent=2, ensure_ascii=False) + "\n")
-print("wrote", out)
+root = pathlib.Path(__file__).resolve().parent.parent
+for out in (root / "schema" / "resume-agent.schema.json", root / "ora_tools" / "schema.json"):
+    out.write_text(json.dumps(schema, indent=2, ensure_ascii=False) + "\n")
+    print("wrote", out)

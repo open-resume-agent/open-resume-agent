@@ -1,0 +1,25 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.open-resume-agent/ora-mcp",
+  "title": "Open Resume Agent",
+  "description": "Serve an ORA resume agent file over MCP: filtered profile, role views, job-fit context, resume rendering (docx/pdf/html/md/json) and handoff.",
+  "repository": { "url": "https://github.com/open-resume-agent/open-resume-agent", "source": "github" },
+  "websiteUrl": "https://openresumeagent.org",
+  "version": "0.3.0",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "ora-tools",
+      "version": "0.3.0",
+      "runtimeHint": "uvx",
+      "transport": { "type": "stdio" },
+      "packageArguments": [
+        { "type": "positional", "valueHint": "resume-agent.md", "description": "Path to the ORA agent file (public build recommended)", "isRequired": true }
+      ],
+      "environmentVariables": [
+        { "name": "ORA_MAX_AUDIENCE", "description": "Highest audience the server may disclose: public | recruiter | verified_employer | owner", "default": "public", "isRequired": false },
+        { "name": "ORA_OUT_DIR", "description": "Directory for rendered resumes and handoff logs", "default": "ora-out", "isRequired": false }
+      ]
+    }
+  ]
+}
