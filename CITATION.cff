@@ -8,7 +8,7 @@ authors:
   - family-names: "Hiremath"
     given-names: "Sangamesh"
 license: MIT
-repository-code: "https://github.com/sangameshh/open-resume-agent"
+repository-code: "https://github.com/open-resume-agent/open-resume-agent"
 keywords:
   - resume
   - ai-agents
