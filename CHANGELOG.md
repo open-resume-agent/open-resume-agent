@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.1 — 2026-11-17
+- Spec site at https://openresumeagent.org (static HTML in `docs/`, built by `make site`). It serves the schema `$id` and the A2A extension URI
+- Reference tools packaged as **ora-tools** (PyPI): `ora` CLI (build, validate, render, card, mcp) and `ora-mcp`; `server.json` for the MCP Registry
+- Governance: Code of Conduct, SECURITY, GOVERNANCE, CC BY 4.0 spec license, ROADMAP, CITATION.cff, RFC process, issue and PR templates
+- Repo moved to the `open-resume-agent` GitHub organization; checks run locally (`make check`)
+- No changes to normative spec text
+
 ## 0.3.0 — 2026-11-17 (draft)
 - **The agent file is now the primary output**: `resume-agent.md`, a single model-agnostic Markdown file (SPEC §18, rules M1–M8)
   - Front matter starts with `name`/`description`, so it can be installed as a skill
