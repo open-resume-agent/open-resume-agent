@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use or reference this specification, please cite it as below."
+title: "Open Resume Agent (ORA) Specification"
+type: software
+version: "0.3.0"
+date-released: "2026-11-17"
+authors:
+  - family-names: "Hiremath"
+    given-names: "Sangamesh"
+license: MIT
+repository-code: "https://github.com/sangameshh/open-resume-agent"
+keywords:
+  - resume
+  - ai-agents
+  - model-context-protocol
+  - verifiable-credentials
+  - json-resume
+  - specification
+abstract: >-
+  An open specification that compiles a person's professional record into a single,
+  model-agnostic agent file that any AI platform can load as a skill, system prompt
+  or MCP server, and that generates resumes on request.

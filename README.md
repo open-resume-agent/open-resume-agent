@@ -97,8 +97,8 @@ tests/                                  validator, agent file, render and MCP te
 
 ## Status
 
-v0.3 draft. Contributions are welcome. See `CONTRIBUTING.md`.
+v0.3 draft. See `ROADMAP.md`. Contributions are welcome via `CONTRIBUTING.md` and `rfcs/`. Governance: `GOVERNANCE.md`. Security and privacy reports: `SECURITY.md`. Cite with `CITATION.cff`.
 
 ## License
 
-Code and schema: MIT. Spec text: CC-BY-4.0.
+Code and schema: MIT (`LICENSE`). Spec text: CC BY 4.0 (`LICENSE-SPEC.md`).

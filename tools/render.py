@@ -311,6 +311,7 @@ def to_docx(m, path):
         fp = sec.footer.paragraphs[0]; fp.text = m["footer"]; fp.alignment = WD_ALIGN_PARAGRAPH.CENTER
         fp.runs[0].font.size = Pt(8); fp.runs[0].font.color.rgb = RGBColor(0x66, 0x66, 0x66)
     d.core_properties.title = f"{m['name']} — Resume"; d.core_properties.comments = m["footer"]
+    d.core_properties.author = m["name"]; d.core_properties.last_modified_by = "ORA render"
     d.save(path)
 
 

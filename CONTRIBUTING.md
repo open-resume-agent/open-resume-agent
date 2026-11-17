@@ -8,9 +8,14 @@
 
 ## Process
 1. Open an issue that describes the problem before proposing a schema change.
-2. Changes to rules (C/R/D/V/P/F/T/E/J/Q/K/A/I) need a rationale and at least one conformance case.
+2. Normative changes, meaning any rule (C/R/D/V/P/F/T/E/J/Q/K/A/I/M/X/O), the schema, a profile or a registry entry, go through an RFC (`rfcs/README.md`) and need at least one conformance case.
 3. Run `make check` before every push. It regenerates the schema and agent files, fails if either is stale, then validates everything and runs all tests. Checks run locally; the repo has no hosted CI.
 4. Use only fictional people in examples. Never put real personal data in the repo.
 
 ## Versioning
 SemVer in the `ora` field. Before 1.0, minor versions can break compatibility. Every breaking change gets an entry in `CHANGELOG.md`.
+
+## Conduct, security and governance
+- `CODE_OF_CONDUCT.md`: Contributor Covenant 3.0
+- `SECURITY.md`: privacy bugs are security bugs; report them privately
+- `GOVERNANCE.md`: how decisions are made; sign off commits (DCO)
