@@ -2,7 +2,7 @@
 
 ## 0.3.1 — 2026-11-17
 - Spec site at https://openresumeagent.org (static HTML in `docs/`, built by `make site`). It serves the schema `$id` and the A2A extension URI
-- Reference tools packaged as **ora-tools** (PyPI): `ora` CLI (build, validate, render, card, mcp) and `ora-mcp`; `server.json` for the MCP Registry
+- Reference tools packaged as **open-resume-agent** (PyPI; import name `ora_tools`): `ora` CLI (build, validate, render, card, mcp) and `ora-mcp`; `server.json` for the MCP Registry
 - Governance: Code of Conduct, SECURITY, GOVERNANCE, CC BY 4.0 spec license, ROADMAP, CITATION.cff, RFC process, issue and PR templates
 - Repo moved to the `open-resume-agent` GitHub organization; checks run locally (`make check`)
 - No changes to normative spec text

@@ -9,7 +9,7 @@ make check                  # stale-file check, validation, all tests
 ```
 
 ## 2. Publish the Python package (PyPI)
-One-time: create a PyPI account, enable 2FA, and create an API token scoped to `ora-tools` (the first upload needs an account-wide token).
+One-time: create a PyPI account, enable 2FA, and create an API token scoped to `open-resume-agent` (the first upload needs an account-wide token).
 ```bash
 pip install build twine
 make package                # builds dist/*.whl and dist/*.tar.gz

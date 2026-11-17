@@ -52,7 +52,7 @@ See `agents/tech-executive.resume-agent.md` for a full example.
 ## Install
 
 ```bash
-pip install "ora-tools[mcp]"     # CLI: ora build | validate | render | card | mcp
+pip install "open-resume-agent[mcp]"     # CLI: ora build | validate | render | card | mcp
 ```
 
 <!-- MCP Registry ownership marker -->

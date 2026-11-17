@@ -18,7 +18,7 @@ def main(argv=None):
     if not argv or argv[0] in ("-h", "--help", "help"):
         print(__doc__); return 0
     if argv[0] in ("-V", "--version"):
-        print(f"ora-tools {__version__}"); return 0
+        print(f"open-resume-agent {__version__}"); return 0
     cmd, rest = argv[0], argv[1:]
     if cmd not in COMMANDS:
         print(f"unknown command '{cmd}'\n{__doc__}", file=sys.stderr); return 2

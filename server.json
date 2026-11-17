@@ -9,7 +9,7 @@
   "packages": [
     {
       "registryType": "pypi",
-      "identifier": "ora-tools",
+      "identifier": "open-resume-agent",
       "version": "0.3.1",
       "runtimeHint": "uvx",
       "transport": { "type": "stdio" },
