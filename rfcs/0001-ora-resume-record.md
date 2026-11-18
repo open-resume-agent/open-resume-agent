@@ -1,7 +1,7 @@
-# RFC 0000: ORA's own résumé record
+# RFC 0001: ORA's own résumé record
 
 - **Author(s):** Sangamesh Hiremath (`sangameshh`)
-- **Status:** discussion
+- **Status:** accepted (18 November 2026). The founder, as sole maintainer, waived the 14-day comment period in GOVERNANCE.md; no other maintainers or implementers were affected
 - **Affects:** SPEC §0, §1.2, §2, new §2.1, new §20.3 (rule O8) · schema · tools (`build_md`, `render`, `build_site`) · examples · conformance
 
 ## Summary
