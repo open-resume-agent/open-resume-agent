@@ -34,7 +34,7 @@ See `agents/tech-executive.resume-agent.md` for a full example.
 
 | Need | Standard |
 |---|---|
-| Resume data | JSON Resume v1.0.0 |
+| Resume data | ORA résumé record (SPEC §2.1); exports to JSON Resume v1.0.0 |
 | Proof | W3C Verifiable Credentials 2.0, Open Badges 3.0, CLR 2.0, LER-RS, Europass EDC |
 | Occupations / industries | O\*NET-SOC 2019, ISCO-08 / ESCO, NOC, ANZSCO, UK SOC, NCO, MOC · NAICS, ISIC, NACE |
 | Skills | ESCO, O\*NET, Lightcast Open Skills, SFIA |
@@ -47,7 +47,7 @@ See `agents/tech-executive.resume-agent.md` for a full example.
 - **15 industry profiles**: technology, healthcare, academic, legal, finance, aviation, trades, education, creative, military, public sector, sales, executive, hospitality/retail, logistics
 - **Role views**: one record presented for many target roles. Emphasis changes; facts don't.
 - **Compliance defaults**: says it's an AI, never shares protected characteristics or salary history, hands off criminal history and accommodation questions, never makes binding commitments
-- **Conformance**: L1 (valid) / L2 (faithful: 48 behavior cases) / L3 (verifiable)
+- **Conformance**: L1 (valid) / L2 (faithful: 49 behavior cases) / L3 (verifiable)
 
 ## Install
 
@@ -96,19 +96,19 @@ MCP tools: `ora_profile`, `ora_list_views`, `ora_fit_context`, `ora_render`, `or
 ## Repo
 
 ```
-SPEC.md · PROFILES.md · REGISTRY.md     specification (v0.3), industry profiles, registries
+SPEC.md · PROFILES.md · REGISTRY.md     specification (v0.4), industry profiles, registries
 schema/                                 JSON Schema 2020-12 for the source document
 examples/                               5 fictional sources: tech exec · nurse · scientist · electrician · veteran
 agents/                                 compiled agent files (public builds) + A2A card
 samples/                                rendered outputs: docx, pdf, html, md, txt, json
-conformance/cases.json                  48 behavior cases for L2
+conformance/cases.json                  49 behavior cases for L2
 tools/  build_md · render · ora_mcp · validate · to_agent_card · build_schema · ora_core
 tests/                                  validator, agent file, render and MCP tests
 ```
 
 ## Status
 
-v0.3 draft. See `ROADMAP.md`. Contributions are welcome via `CONTRIBUTING.md` and `rfcs/`. Governance: `GOVERNANCE.md`. Security and privacy reports: `SECURITY.md`. Cite with `CITATION.cff`.
+v0.4 draft. See `ROADMAP.md`. Contributions are welcome via `CONTRIBUTING.md` and `rfcs/`. Governance: `GOVERNANCE.md`. Security and privacy reports: `SECURITY.md`. Cite with `CITATION.cff`.
 
 ## License
 

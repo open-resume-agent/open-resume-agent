@@ -1,6 +1,6 @@
 {
-  "$schema": "https://openresumeagent.org/schema/v0.3/resume-agent.schema.json",
-  "ora": "0.3",
+  "$schema": "https://openresumeagent.org/schema/v0.4/resume-agent.schema.json",
+  "ora": "0.4",
   "resume": {
     "basics": {
       "name": "Jane Doe",

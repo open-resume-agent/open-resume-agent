@@ -1,4 +1,4 @@
-"""Builds schema/resume-agent.schema.json (ORA v0.3). Run: python3 tools/build_schema.py"""
+"""Builds schema/resume-agent.schema.json (ORA v0.4). Run: python3 tools/build_schema.py"""
 import json, pathlib
 
 S = {"type": "string"}
@@ -121,19 +121,35 @@ idref_rule = {"type": "object", "required": ["audiences"],
   "oneOf": [{"required": ["path"]}, {"required": ["claim"]}, {"required": ["credential"]}, {"required": ["skill"]}],
   "properties": {"path": PTR, "claim": ID, "credential": ID, "skill": ID, "fields": arr(S), "audiences": arr(S)}}
 
+# ORA résumé record (§2.1, v0.4): ORA's own résumé fields. JSON Resume is an export format (§20), not the source.
+location = obj({"address": S, "postalCode": S, "city": S, "region": S, "countryCode": {"type": "string", "pattern": "^[A-Z]{2}$"}})
+resume = obj({
+    "basics": obj({"name": S, "label": S, "email": {"type": "string", "format": "email"}, "phone": S, "url": U,
+        "summary": S, "location": location}),
+    "work": arr({"allOf": [obj({"name": S, "position": S, "location": S, "url": U, "startDate": D, "endDate": D,
+        "summary": S, "highlights": arr(S)})], "anyOf": [{"required": ["name"]}, {"required": ["position"]}]}),
+    "education": arr(obj({"institution": S, "area": S, "studyType": S, "startDate": D, "endDate": D, "score": S,
+        "courses": arr(S)}, ["institution"])),
+    "certificates": arr(obj({"name": S, "issuer": S, "date": D, "url": U}, ["name"])),
+})
+resume["description"] = "ORA résumé record (SPEC §2.1)"
+
 schema = {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://openresumeagent.org/schema/v0.3/resume-agent.schema.json",
-  "title": "Open Resume Agent v0.3",
+  "$id": "https://openresumeagent.org/schema/v0.4/resume-agent.schema.json",
+  "title": "Open Resume Agent v0.4",
   "type": "object",
   "required": ["ora", "owner", "claims", "disclosure", "commitments", "capabilities"],
   "oneOf": [{"required": ["resume"], "not": {"required": ["resumeUrl"]}},
             {"required": ["resumeUrl"], "not": {"required": ["resume"]}}],
+  # From v0.4 the résumé is ORA's own record; v0.2 and v0.3 documents keep their JSON Resume object.
+  "if": {"properties": {"ora": {"const": "0.4"}}, "required": ["ora"]},
+  "then": {"properties": {"resume": {"$ref": "#/$defs/resume"}}},
   "patternProperties": {"^x-": {}},
   "additionalProperties": False,
   "properties": {
-    "$schema": S, "ora": {"enum": ["0.2", "0.3"]},
-    "resume": {"type": "object", "description": "JSON Resume v1.0.0"}, "resumeUrl": U,
+    "$schema": S, "ora": {"enum": ["0.2", "0.3", "0.4"]},
+    "resume": {"type": "object", "description": "ORA résumé record from v0.4 (§2.1); JSON Resume in v0.2 and v0.3"}, "resumeUrl": U,
     "owner": obj({"name": S, "preferredName": S, "pronouns": {"type": ["string", "null"]}, "contact": U,
         "verifiedHandles": arr(obj({"platform": S, "url": U}, ["platform", "url"])),
         "did": {"type": "string", "pattern": "^did:"}, "publicKey": {"type": "object", "required": ["kty"]}}, ["name", "contact"]),
@@ -219,6 +235,7 @@ schema = {
     "metric": obj({"kind": {"anyOf": [enum("team_size", "direct_reports", "budget", "revenue", "cost_savings", "users", "customers", "transactions", "uptime", "latency", "patients", "beds", "caseload", "students", "publications", "citations", "grants_amount", "projects", "flight_hours", "apprenticeship_hours", "sales_quota_attainment", "aum", "nps", "safety_incidents"), {"type": "string", "pattern": "^x-"}]},
         "value": N, "unit": S, "currency": {"$ref": "#/$defs/currency"}, "period": S, "baseline": N, "asOf": D}, ["kind", "value"]),
     "commitment": commitment,
+    "resume": resume,
     "driversLicense": obj({"class": S, "endorsements": arr(S), "jurisdiction": S}),
     "creditRole": enum("conceptualization", "data_curation", "formal_analysis", "funding_acquisition", "investigation", "methodology", "project_administration", "resources", "software", "supervision", "validation", "visualization", "writing_original_draft", "writing_review_editing"),
   },

@@ -106,6 +106,21 @@ def test_json_resume_output_valid_shape():
     except ValueError:
         pass
 
+def test_json_resume_export_maps_record_and_drops_extensions():
+    src = json.loads(json.dumps(SRC["tech-executive"]))
+    src["resume"]["work"][0].update({"location": "Remote", "x-internal": "drop me"})
+    src["resume"].setdefault("education", [{"institution": "State University"}])[0]["x-note"] = "drop me"
+    p = TMP / "x.md"; p.write_text(build_md.build(src, "public", TODAY))
+    d = json.loads(render.render(p, "json-resume", None, "public", None, TMP / "x.json", TODAY).read_text())
+    assert d["work"][0]["location"] == "Remote"
+    assert "drop me" not in json.dumps(d)
+
+def test_build_keeps_source_version():
+    src = dict(SRC["electrician"], ora="0.3")
+    text = build_md.build(src, "public", TODAY)
+    assert 'ora: "0.3"' in text and '"ora": "0.3"' in text
+    assert 'ora: "0.4"' in md_for("electrician").read_text()
+
 def test_mcp_server_stdio():
     try:
         from mcp import ClientSession, StdioServerParameters

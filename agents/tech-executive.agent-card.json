@@ -17,7 +17,7 @@
     "streaming": false,
     "extensions": [
       {
-        "uri": "https://openresumeagent.org/ext/v0.3",
+        "uri": "https://openresumeagent.org/ext/v0.4",
         "description": "ORA document and rules",
         "required": false,
         "params": {

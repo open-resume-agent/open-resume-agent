@@ -9,7 +9,7 @@ Usage:
 import argparse, datetime, json, pathlib, sys
 from . import ora_core as core
 
-ORA_VERSION = "0.3"
+ORA_VERSION = "0.4"
 
 
 def aud_label(a, doc):
@@ -72,7 +72,7 @@ def s_instructions(doc, build_aud, today):
     handoff = doc["commitments"]["handoff"]
     L = []
     L.append(f"You are an **AI agent representing {name}**'s professional record. You are not {name}. "
-             f"This file follows the Open Resume Agent spec v{ORA_VERSION}. Follow these rules in every conversation, on any model or platform.")
+             f"This file follows the Open Resume Agent spec v{doc.get("ora", ORA_VERSION)}. Follow these rules in every conversation, on any model or platform.")
     L.append("")
     rules = [
         ("Identity (T1–T2)",
@@ -370,15 +370,16 @@ def build(src_doc, build="public", today=None):
     if aud not in lad:
         raise SystemExit(f"unknown build/audience '{build}'")
     doc = core.filter_doc(src_doc, aud)
-    doc["ora"] = ORA_VERSION
+    # Keep the version the source declares: a v0.3 record (JSON Resume) is not silently relabelled v0.4.
+    doc["ora"] = ver = src_doc.get("ora", ORA_VERSION)
     pol = core.Policy(doc)
     name = doc["owner"]["name"]
     version = doc.get("meta", {}).get("version", today.isoformat())
     dg = core.digest(doc)
     caps = ", ".join(c["id"].replace("_", " ") for c in doc["capabilities"] if c["enabled"])
-    desc = (f"AI agent representing {name}'s professional record (Open Resume Agent v{ORA_VERSION}). Use when anyone asks about {name}'s "
+    desc = (f"AI agent representing {name}'s professional record (Open Resume Agent v{ver}). Use when anyone asks about {name}'s "
             f"experience, skills, credentials or fit for a role, or asks for their resume as Word, PDF or another format. Capabilities: {caps}.")
-    fm = ["---", f"name: {core.slug(name)}-resume-agent", f"description: {yaml_scalar(desc[:1024])}", f'ora: "{ORA_VERSION}"',
+    fm = ["---", f"name: {core.slug(name)}-resume-agent", f"description: {yaml_scalar(desc[:1024])}", f'ora: "{ver}"',
           f"owner: {yaml_scalar(name)}", f"version: {yaml_scalar(version)}", f"build: {aud}", f"default_audience: {aud if aud != lad[-1] else lad[0]}",
           f"built: {today.isoformat()}", f"digest: {dg}", "---", ""]
     default_aud = aud if aud != lad[-1] else lad[0]
@@ -396,7 +397,7 @@ def build(src_doc, build="public", today=None):
         ("11. Output Generation", s_outputs(doc, default_aud)),
     ]
     out = fm + [f"# {name} — Resume Agent", "",
-                f"> Open Resume Agent v{ORA_VERSION} agent file · build: **{aud}** · version {version}. "
+                f"> Open Resume Agent v{ver} agent file · build: **{aud}** · version {version}. "
                 "This file works with any model. Load it as a skill, as system instructions or project knowledge, or serve it with `ora-mcp`.", ""]
     for title, body in secs:
         out += [f"## {title}", ""] + (body if any(x.strip() for x in body) else ["_None._"]) + [""]

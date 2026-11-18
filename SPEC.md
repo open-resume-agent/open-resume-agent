@@ -1,8 +1,12 @@
-# Open Resume Agent (ORA) — Specification v0.3 (Draft)
+# Open Resume Agent (ORA) — Specification v0.4 (Draft)
 
-**Status:** Draft · **License:** MIT (spec text CC-BY-4.0) · **Extends:** JSON Resume v1.0.0
+**Status:** Draft · **License:** MIT (spec text CC-BY-4.0) · **Exports to:** JSON Resume v1.0.0
 
 ## 0. Changes
+
+### v0.4
+- **ORA defines its own résumé record (§2.1).** The `resume` object is no longer a JSON Resume document. ORA defines its fields, and the schema validates them. The fields keep their v0.3 names and pointers, so `/resume/basics/phone` still works. JSON Resume becomes an export format (§20.3). RFC 0001.
+- **Breaking:** in a v0.4 document, `resume` holds only `basics`, `work`, `education`, `certificates` and `x-` keys. Other JSON Resume sections move to claims, narratives, profiles or an `x-` key (§2.1). Documents that declare `"ora": "0.3"` or `"0.2"` keep their JSON Resume object and stay valid.
 
 ### v0.3
 - **The spec now produces an agent file, not a resume.** The primary output is `resume-agent.md`, one model-agnostic Markdown file (§18).
@@ -54,7 +58,7 @@ resume-agent.json ──build──▶ resume-agent.md ──load──▶ Skill
 2. **Silence beats invention.** Unknown facts are unknown.
 3. **Least disclosure.** Nothing beyond what the requester's audience may see.
 4. **The human decides.** No binding commitments; anything consequential is handed back to the owner.
-5. **Reuse standards.** JSON Resume for data, W3C VC 2.0 for proof, ESCO/O\*NET for meaning, A2A/MCP for transport.
+5. **Reuse standards.** W3C VC 2.0 for proof, ESCO/O\*NET for meaning, A2A/MCP for transport. ORA defines its own résumé record (§2.1) and exports to JSON Resume.
 6. **Industry-neutral core, industry-specific profiles.**
 
 ## 2. Document
@@ -63,9 +67,9 @@ File `resume-agent.json`, served at `https://<owner-domain>/.well-known/resume-a
 
 ```jsonc
 {
-  "$schema": "https://openresumeagent.org/schema/v0.2/resume-agent.schema.json",
-  "ora": "0.2",
-  "resume": { /* JSON Resume */ },     // or "resumeUrl"
+  "$schema": "https://openresumeagent.org/schema/v0.4/resume-agent.schema.json",
+  "ora": "0.4",
+  "resume": { /* ORA résumé record, §2.1 */ },     // or "resumeUrl"
   "owner": {},
   "locale": {},
   "classification": {},
@@ -92,7 +96,28 @@ Required: `ora`, `owner`, `claims`, `disclosure`, `commitments`, `capabilities`,
 
 Unknown top-level keys MUST be prefixed `x-`. Implementations MUST ignore `x-` keys they don't understand.
 
-**Pointers.** Every `path` and `never` entry is an RFC 6901 JSON Pointer resolved against the ORA document. Inline resume content is under `/resume/...` (e.g. `/resume/basics/phone`) and profile data under `/profiles/...`. When `resumeUrl` is used, `/resume/...` pointers resolve against the fetched resume.
+**Pointers.** Every `path` and `never` entry is an RFC 6901 JSON Pointer resolved against the ORA document. Inline resume content is under `/resume/...` (e.g. `/resume/basics/phone`) and profile data under `/profiles/...`. When `resumeUrl` is used, `/resume/...` pointers resolve against the fetched resume, which MUST be an ORA résumé record (§2.1).
+
+### 2.1 Résumé record
+
+The `resume` object holds the plain résumé facts: contact details, positions, education and certificates. ORA defines these fields itself. They need no outside format, and the schema checks them. Everything with proof, assurance or audience rules lives in the rest of the document (claims, credentials, skills, profiles).
+
+| Field | Type | Notes |
+|---|---|---|
+| `basics.name`, `basics.label`, `basics.summary` | string | `label` is the headline title |
+| `basics.email` | email | |
+| `basics.phone`, `basics.url` | string, URI | |
+| `basics.location` | object | `address`, `postalCode`, `city`, `region`, `countryCode` (ISO 3166-1 alpha-2) |
+| `work[]` | object | `name` (organization), `position`, `location`, `url`, `startDate`, `endDate`, `summary`, `highlights[]`. At least one of `name` or `position` |
+| `education[]` | object | `institution` (required), `area`, `studyType`, `startDate`, `endDate`, `score`, `courses[]` |
+| `certificates[]` | object | `name` (required), `issuer`, `date`, `url`. A plain listing; a credential with status or verification belongs in `credentials` (§6) |
+
+- **RR1.** Dates MUST be `YYYY`, `YYYY-MM` or `YYYY-MM-DD`. A missing `endDate` means current.
+- **RR2.** Unknown keys MUST be prefixed `x-`, at the top of the record and in every entry. Implementations MUST ignore `x-` keys they don't understand, and exports MUST drop them (§20.3).
+- **RR3.** Facts that need assurance, metrics or audience rules SHOULD be claims (§4) that point into the record, not new record fields. Projects, awards, volunteering and publications are claims, narratives or profile data (§9), not record sections.
+- **RR4.** The field names match JSON Resume v1.0.0 where the two overlap, so a JSON Resume document's `basics`, `work`, `education` and `certificates` can be imported with no renaming. Other JSON Resume sections are not imported as record fields; RR3 says where they go.
+
+A document that declares `"ora": "0.2"` or `"0.3"` keeps a JSON Resume object in `resume`, and implementations MUST still accept it.
 
 ## 3. Owner and locale
 
@@ -643,7 +668,13 @@ The agent file can produce resumes on request. There are two ways to render, and
 - **O6.** Renders SHOULD carry the footer, so the document can be traced back to a record version.
 - **O7.** Rendering for an audience above `public` MUST be logged (§15).
 
-## 21. Open questions for v0.4
+### 20.3 JSON Resume export
+
+`json-resume` is an export, not ORA's data format. The export follows O1–O7 like any other render.
+
+- **O8.** The export MUST be a JSON Resume v1.0.0 document. Record fields map by name (§2.1, RR4). `x-` keys MUST NOT be exported. Credentials that are active certifications or licences become `certificates`. Skills and languages come from `skills` and `locale.languages`, and academic publications from `profiles.academic`. ORA provenance goes under `meta.x-ora`.
+
+## 21. Open questions for v0.5
 
 - Recruiter-side counterpart ("Job Agent") and a negotiation protocol between agents
 - Normative two-way mapping between claims and LER-RS

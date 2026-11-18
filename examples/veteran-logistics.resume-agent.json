@@ -1,5 +1,5 @@
 {
-  "ora": "0.3",
+  "ora": "0.4",
   "resume": {
     "basics": { "name": "Sam Okafor", "label": "Fleet & Logistics Supervisor", "email": "sam@example.com",
                 "location": { "city": "El Paso", "region": "TX", "countryCode": "US" } },

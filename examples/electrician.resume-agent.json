@@ -1,5 +1,5 @@
 {
-  "ora": "0.3",
+  "ora": "0.4",
   "resume": {
     "basics": { "name": "Dwayne Carter", "label": "Journeyman Electrician", "phone": "+1 555 010 0177", "email": "dwayne@example.net",
                 "location": { "city": "Columbus", "region": "OH", "countryCode": "US" } },

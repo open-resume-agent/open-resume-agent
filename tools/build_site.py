@@ -3,8 +3,8 @@
 
 Static HTML only (.nojekyll): no build step runs on GitHub.
 Publishes the stable URLs the spec references:
-  /schema/v0.3/resume-agent.schema.json   (schema $id)
-  /ext/v0.3/                              (A2A AgentExtension uri)
+  /schema/v0.4/resume-agent.schema.json   (schema $id; earlier versions stay published from schema/archive/)
+  /ext/v0.4/                              (A2A AgentExtension uri; earlier versions stay published)
   /spec/  /profiles/  /registry/
 Run: python3 tools/build_site.py   (part of `make site` and `make check`)
 """
@@ -14,7 +14,7 @@ import markdown
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
 REPO = "https://github.com/open-resume-agent/open-resume-agent"
-VERSION = "0.3"
+VERSION = "0.4"
 CSS = """
 :root{--fg:#1d1d1f;--muted:#5b5b66;--accent:#1f4e79;--bg:#fff;--code:#f4f5f7;--line:#e3e5e8}
 @media (prefers-color-scheme:dark){:root{--fg:#e8e8ea;--muted:#a3a3ad;--accent:#7fb2e5;--bg:#111214;--code:#1c1e22;--line:#2b2e33}}
@@ -58,6 +58,17 @@ def write_page(path, title, md_text):
     out.write_text(shell(title, md_to_html(md_text)), encoding="utf-8")
 
 
+def ext_page(ver):
+    write_page(f"ext/v{ver}", f"A2A extension v{ver}",
+               f"# ORA A2A extension v{ver}\n\n"
+               "An A2A Agent Card that lists this URI in `capabilities.extensions` declares that the agent represents a person "
+               "under the Open Resume Agent specification and follows its rules: truthfulness, disclosure audiences, "
+               "compliance, commitments and handoff.\n\n"
+               "**Params:** `document`, the URL of the agent's ORA document or agent file (public build), "
+               "e.g. `/.well-known/resume-agent.md`.\n\n"
+               f"- [Specification](/spec/) (§14.3)\n- [Schema](/schema/v{ver}/resume-agent.schema.json)\n- [Source]({REPO})\n")
+
+
 def main():
     if DOCS.exists():
         shutil.rmtree(DOCS)
@@ -76,14 +87,13 @@ def main():
     sdir.mkdir(parents=True)
     (sdir / "resume-agent.schema.json").write_text(json.dumps(schema, indent=2, ensure_ascii=False) + "\n")
 
-    write_page(f"ext/v{VERSION}", f"A2A extension v{VERSION}",
-               f"# ORA A2A extension v{VERSION}\n\n"
-               "An A2A Agent Card that lists this URI in `capabilities.extensions` declares that the agent represents a person "
-               "under the Open Resume Agent specification and follows its rules: truthfulness, disclosure audiences, "
-               "compliance, commitments and handoff.\n\n"
-               "**Params:** `document`, the URL of the agent's ORA document or agent file (public build), "
-               "e.g. `/.well-known/resume-agent.md`.\n\n"
-               f"- [Specification](/spec/) (§14.3)\n- [Schema](/schema/v{VERSION}/resume-agent.schema.json)\n- [Source]({REPO})\n")
+    # Earlier schema versions stay at their $id, so documents that name them keep resolving.
+    for old in sorted((ROOT / "schema" / "archive").glob("v*.resume-agent.schema.json")):
+        v = old.name.split(".resume-agent")[0]
+        (DOCS / "schema" / v).mkdir(parents=True)
+        (DOCS / "schema" / v / "resume-agent.schema.json").write_text(old.read_text())
+    for ver in [old.name.split(".resume-agent")[0][1:] for old in (ROOT / "schema" / "archive").glob("v*.resume-agent.schema.json")] + [VERSION]:
+        ext_page(ver)
 
     write_page("", "Home",
                "# Open Resume Agent (ORA)\n\n"
