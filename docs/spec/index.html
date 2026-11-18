@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Specification v0.3 · Open Resume Agent</title><meta name="description" content="An open spec that turns a career into a model-agnostic AI agent file."><style>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Specification v0.4 · Open Resume Agent</title><meta name="description" content="An open spec that turns a career into a model-agnostic AI agent file."><style>
 :root{--fg:#1d1d1f;--muted:#5b5b66;--accent:#1f4e79;--bg:#fff;--code:#f4f5f7;--line:#e3e5e8}
 @media (prefers-color-scheme:dark){:root{--fg:#e8e8ea;--muted:#a3a3ad;--accent:#7fb2e5;--bg:#111214;--code:#1c1e22;--line:#2b2e33}}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
@@ -11,9 +11,14 @@ pre{background:var(--code);padding:14px;border-radius:8px;overflow:auto}pre code
 table{border-collapse:collapse;width:100%;display:block;overflow:auto;font-size:.95em}th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
 blockquote{margin:0;padding-left:14px;border-left:3px solid var(--line);color:var(--muted)}
 footer{max-width:860px;margin:40px auto;padding:16px 20px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
-</style></head><body><header><div class="in"><a class="brand" href="/">Open Resume Agent</a><nav><a href="/spec/">Spec</a> <a href="/profiles/">Profiles</a> <a href="/registry/">Registry</a> <a href="/schema/v0.3/resume-agent.schema.json">Schema</a> <a href="https://github.com/open-resume-agent/open-resume-agent">GitHub</a></nav></div></header><main><h1 id="open-resume-agent-ora-specification-v03-draft">Open Resume Agent (ORA) — Specification v0.3 (Draft)</h1>
-<p><strong>Status:</strong> Draft · <strong>License:</strong> MIT (spec text CC-BY-4.0) · <strong>Extends:</strong> JSON Resume v1.0.0</p>
+</style></head><body><header><div class="in"><a class="brand" href="/">Open Resume Agent</a><nav><a href="/spec/">Spec</a> <a href="/profiles/">Profiles</a> <a href="/registry/">Registry</a> <a href="/schema/v0.4/resume-agent.schema.json">Schema</a> <a href="https://github.com/open-resume-agent/open-resume-agent">GitHub</a></nav></div></header><main><h1 id="open-resume-agent-ora-specification-v04-draft">Open Resume Agent (ORA) — Specification v0.4 (Draft)</h1>
+<p><strong>Status:</strong> Draft · <strong>License:</strong> MIT (spec text CC-BY-4.0) · <strong>Exports to:</strong> JSON Resume v1.0.0</p>
 <h2 id="0-changes">0. Changes</h2>
+<h3 id="v04">v0.4</h3>
+<ul>
+<li><strong>ORA defines its own résumé record (§2.1).</strong> The <code>resume</code> object is no longer a JSON Resume document. ORA defines its fields, and the schema validates them. The fields keep their v0.3 names and pointers, so <code>/resume/basics/phone</code> still works. JSON Resume becomes an export format (§20.3). RFC 0001.</li>
+<li><strong>Breaking:</strong> in a v0.4 document, <code>resume</code> holds only <code>basics</code>, <code>work</code>, <code>education</code>, <code>certificates</code> and <code>x-</code> keys. Other JSON Resume sections move to claims, narratives, profiles or an <code>x-</code> key (§2.1). Documents that declare <code>"ora": "0.3"</code> or <code>"0.2"</code> keep their JSON Resume object and stay valid.</li>
+</ul>
 <h3 id="v03">v0.3</h3>
 <ul>
 <li><strong>The spec now produces an agent file, not a resume.</strong> The primary output is <code>resume-agent.md</code>, one model-agnostic Markdown file (§18).</li>
@@ -76,15 +81,15 @@ footer{max-width:860px;margin:40px auto;padding:16px 20px;border-top:1px solid v
 <li><strong>Silence beats invention.</strong> Unknown facts are unknown.</li>
 <li><strong>Least disclosure.</strong> Nothing beyond what the requester's audience may see.</li>
 <li><strong>The human decides.</strong> No binding commitments; anything consequential is handed back to the owner.</li>
-<li><strong>Reuse standards.</strong> JSON Resume for data, W3C VC 2.0 for proof, ESCO/O*NET for meaning, A2A/MCP for transport.</li>
+<li><strong>Reuse standards.</strong> W3C VC 2.0 for proof, ESCO/O*NET for meaning, A2A/MCP for transport. ORA defines its own résumé record (§2.1) and exports to JSON Resume.</li>
 <li><strong>Industry-neutral core, industry-specific profiles.</strong></li>
 </ol>
 <h2 id="2-document">2. Document</h2>
 <p>File <code>resume-agent.json</code>, served at <code>https://&lt;owner-domain&gt;/.well-known/resume-agent.json</code> (RFC 8615). Media type: <code>application/ora+json</code>.</p>
 <pre><code class="language-jsonc">{
-  &quot;$schema&quot;: &quot;https://openresumeagent.org/schema/v0.2/resume-agent.schema.json&quot;,
-  &quot;ora&quot;: &quot;0.2&quot;,
-  &quot;resume&quot;: { /* JSON Resume */ },     // or &quot;resumeUrl&quot;
+  &quot;$schema&quot;: &quot;https://openresumeagent.org/schema/v0.4/resume-agent.schema.json&quot;,
+  &quot;ora&quot;: &quot;0.4&quot;,
+  &quot;resume&quot;: { /* ORA résumé record, §2.1 */ },     // or &quot;resumeUrl&quot;
   &quot;owner&quot;: {},
   &quot;locale&quot;: {},
   &quot;classification&quot;: {},
@@ -108,7 +113,62 @@ footer{max-width:860px;margin:40px auto;padding:16px 20px;border-top:1px solid v
 </code></pre>
 <p>Required: <code>ora</code>, <code>owner</code>, <code>claims</code>, <code>disclosure</code>, <code>commitments</code>, <code>capabilities</code>, and exactly one of <code>resume</code> or <code>resumeUrl</code>.</p>
 <p>Unknown top-level keys MUST be prefixed <code>x-</code>. Implementations MUST ignore <code>x-</code> keys they don't understand.</p>
-<p><strong>Pointers.</strong> Every <code>path</code> and <code>never</code> entry is an RFC 6901 JSON Pointer resolved against the ORA document. Inline resume content is under <code>/resume/...</code> (e.g. <code>/resume/basics/phone</code>) and profile data under <code>/profiles/...</code>. When <code>resumeUrl</code> is used, <code>/resume/...</code> pointers resolve against the fetched resume.</p>
+<p><strong>Pointers.</strong> Every <code>path</code> and <code>never</code> entry is an RFC 6901 JSON Pointer resolved against the ORA document. Inline resume content is under <code>/resume/...</code> (e.g. <code>/resume/basics/phone</code>) and profile data under <code>/profiles/...</code>. When <code>resumeUrl</code> is used, <code>/resume/...</code> pointers resolve against the fetched resume, which MUST be an ORA résumé record (§2.1).</p>
+<h3 id="21-resume-record">2.1 Résumé record</h3>
+<p>The <code>resume</code> object holds the plain résumé facts: contact details, positions, education and certificates. ORA defines these fields itself. They need no outside format, and the schema checks them. Everything with proof, assurance or audience rules lives in the rest of the document (claims, credentials, skills, profiles).</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>basics.name</code>, <code>basics.label</code>, <code>basics.summary</code></td>
+<td>string</td>
+<td><code>label</code> is the headline title</td>
+</tr>
+<tr>
+<td><code>basics.email</code></td>
+<td>email</td>
+<td></td>
+</tr>
+<tr>
+<td><code>basics.phone</code>, <code>basics.url</code></td>
+<td>string, URI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>basics.location</code></td>
+<td>object</td>
+<td><code>address</code>, <code>postalCode</code>, <code>city</code>, <code>region</code>, <code>countryCode</code> (ISO 3166-1 alpha-2)</td>
+</tr>
+<tr>
+<td><code>work[]</code></td>
+<td>object</td>
+<td><code>name</code> (organization), <code>position</code>, <code>location</code>, <code>url</code>, <code>startDate</code>, <code>endDate</code>, <code>summary</code>, <code>highlights[]</code>. At least one of <code>name</code> or <code>position</code></td>
+</tr>
+<tr>
+<td><code>education[]</code></td>
+<td>object</td>
+<td><code>institution</code> (required), <code>area</code>, <code>studyType</code>, <code>startDate</code>, <code>endDate</code>, <code>score</code>, <code>courses[]</code></td>
+</tr>
+<tr>
+<td><code>certificates[]</code></td>
+<td>object</td>
+<td><code>name</code> (required), <code>issuer</code>, <code>date</code>, <code>url</code>. A plain listing; a credential with status or verification belongs in <code>credentials</code> (§6)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>RR1.</strong> Dates MUST be <code>YYYY</code>, <code>YYYY-MM</code> or <code>YYYY-MM-DD</code>. A missing <code>endDate</code> means current.</li>
+<li><strong>RR2.</strong> Unknown keys MUST be prefixed <code>x-</code>, at the top of the record and in every entry. Implementations MUST ignore <code>x-</code> keys they don't understand, and exports MUST drop them (§20.3).</li>
+<li><strong>RR3.</strong> Facts that need assurance, metrics or audience rules SHOULD be claims (§4) that point into the record, not new record fields. Projects, awards, volunteering and publications are claims, narratives or profile data (§9), not record sections.</li>
+<li><strong>RR4.</strong> The field names match JSON Resume v1.0.0 where the two overlap, so a JSON Resume document's <code>basics</code>, <code>work</code>, <code>education</code> and <code>certificates</code> can be imported with no renaming. Other JSON Resume sections are not imported as record fields; RR3 says where they go.</li>
+</ul>
+<p>A document that declares <code>"ora": "0.2"</code> or <code>"0.3"</code> keeps a JSON Resume object in <code>resume</code>, and implementations MUST still accept it.</p>
 <h2 id="3-owner-and-locale">3. Owner and locale</h2>
 <pre><code class="language-json">&quot;owner&quot;: {
   &quot;name&quot;: &quot;Jane Doe&quot;,
@@ -679,11 +739,16 @@ default_audience: public
 <li><strong>O6.</strong> Renders SHOULD carry the footer, so the document can be traced back to a record version.</li>
 <li><strong>O7.</strong> Rendering for an audience above <code>public</code> MUST be logged (§15).</li>
 </ul>
-<h2 id="21-open-questions-for-v04">21. Open questions for v0.4</h2>
+<h3 id="203-json-resume-export">20.3 JSON Resume export</h3>
+<p><code>json-resume</code> is an export, not ORA's data format. The export follows O1–O7 like any other render.</p>
+<ul>
+<li><strong>O8.</strong> The export MUST be a JSON Resume v1.0.0 document. Record fields map by name (§2.1, RR4). <code>x-</code> keys MUST NOT be exported. Credentials that are active certifications or licences become <code>certificates</code>. Skills and languages come from <code>skills</code> and <code>locale.languages</code>, and academic publications from <code>profiles.academic</code>. ORA provenance goes under <code>meta.x-ora</code>.</li>
+</ul>
+<h2 id="21-open-questions-for-v05">21. Open questions for v0.5</h2>
 <ul>
 <li>Recruiter-side counterpart ("Job Agent") and a negotiation protocol between agents</li>
 <li>Normative two-way mapping between claims and LER-RS</li>
 <li>Revoking claims and evidence, and how revocation propagates</li>
 <li>Team or agency accounts (staffing firms representing many candidates)</li>
 <li>Multilingual statements (<code>statement</code> as a language map)</li>
-</ul></main><footer>ORA v0.3 (draft) · Code MIT · Spec text CC BY 4.0 · <a href="https://github.com/open-resume-agent/open-resume-agent">Source</a></footer></body></html>
+</ul></main><footer>ORA v0.4 (draft) · Code MIT · Spec text CC BY 4.0 · <a href="https://github.com/open-resume-agent/open-resume-agent">Source</a></footer></body></html>

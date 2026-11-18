@@ -220,6 +220,7 @@ def to_html(m):
 
 
 def to_json_resume(m, src):
+    """Export to JSON Resume v1.0.0 (§20.3). The ORA résumé record (§2.1) maps field for field; `x-` keys are dropped."""
     doc = core.filter_doc(src, m["audience"])
     r = doc.get("resume", {}); b = r.get("basics", {})
     basics = {k: v for k, v in b.items() if k in ("name", "label", "email", "phone", "url", "summary")}
@@ -229,9 +230,9 @@ def to_json_resume(m, src):
     basics["profiles"] = [{"network": h["platform"], "url": h["url"]} for h in doc["owner"].get("verifiedHandles", [])]
     work = []
     for w, mx in zip(r.get("work", []), m["experience"]):
-        work.append({k: v for k, v in w.items() if k in ("name", "position", "startDate", "endDate", "url")} | {"highlights": mx["bullets"]})
+        work.append({k: v for k, v in w.items() if k in ("name", "position", "location", "url", "startDate", "endDate", "summary")} | {"highlights": mx["bullets"]})
     out = {"$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json", "basics": basics, "work": work,
-           "education": r.get("education", []),
+           "education": [{k: v for k, v in e.items() if not k.startswith("x-")} for e in r.get("education", [])],
            "certificates": [{"name": c["name"], "issuer": c.get("issuer", ""), "date": c.get("issuedAt", "")}
                             for c in doc.get("credentials", []) if c["kind"] in ("certification", "license") and core.effective_status(c) == "active"],
            "skills": [{"name": s} for s in m["skills"]],

@@ -1,5 +1,5 @@
 {
-  "ora": "0.3",
+  "ora": "0.4",
   "resume": {
     "basics": { "name": "Maria Santos", "label": "Registered Nurse — Emergency", "email": "maria@example.org", "phone": "+1 555 010 0142",
                 "location": { "city": "Sacramento", "region": "CA", "countryCode": "US" } },

@@ -11,7 +11,7 @@ pre{background:var(--code);padding:14px;border-radius:8px;overflow:auto}pre code
 table{border-collapse:collapse;width:100%;display:block;overflow:auto;font-size:.95em}th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
 blockquote{margin:0;padding-left:14px;border-left:3px solid var(--line);color:var(--muted)}
 footer{max-width:860px;margin:40px auto;padding:16px 20px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
-</style></head><body><header><div class="in"><a class="brand" href="/">Open Resume Agent</a><nav><a href="/spec/">Spec</a> <a href="/profiles/">Profiles</a> <a href="/registry/">Registry</a> <a href="/schema/v0.3/resume-agent.schema.json">Schema</a> <a href="https://github.com/open-resume-agent/open-resume-agent">GitHub</a></nav></div></header><main><h1 id="ora-industry-profiles-v02">ORA Industry Profiles v0.2</h1>
+</style></head><body><header><div class="in"><a class="brand" href="/">Open Resume Agent</a><nav><a href="/spec/">Spec</a> <a href="/profiles/">Profiles</a> <a href="/registry/">Registry</a> <a href="/schema/v0.4/resume-agent.schema.json">Schema</a> <a href="https://github.com/open-resume-agent/open-resume-agent">GitHub</a></nav></div></header><main><h1 id="ora-industry-profiles-v02">ORA Industry Profiles v0.2</h1>
 <p>Each profile adds industry-specific fields under <code>profiles.&lt;id&gt;</code>. All fields are optional unless marked <strong>req</strong>. Profile data follows the core claim, disclosure and compliance rules (SPEC §9).</p>
 <p>Each profile lists:
 - <strong>Fields</strong>: what the profile adds
@@ -741,4 +741,4 @@ footer{max-width:860px;margin:40px auto;padding:16px 20px;border-top:1px solid v
 <h2 id="combining-profiles">Combining profiles</h2>
 <p>An owner MAY use several profiles, e.g. <code>healthcare</code> + <code>academic</code> for a clinician-researcher, or <code>technology</code> + <code>executive</code> for a CTO. Role views (§8) then decide which profile leads for a given target role.</p>
 <h2 id="proposing-a-profile">Proposing a profile</h2>
-<p>Open a PR adding <code>profiles/&lt;id&gt;.schema.json</code>, a section in this file, an example under <code>examples/</code>, and at least three conformance cases.</p></main><footer>ORA v0.3 (draft) · Code MIT · Spec text CC BY 4.0 · <a href="https://github.com/open-resume-agent/open-resume-agent">Source</a></footer></body></html>
+<p>Open a PR adding <code>profiles/&lt;id&gt;.schema.json</code>, a section in this file, an example under <code>examples/</code>, and at least three conformance cases.</p></main><footer>ORA v0.4 (draft) · Code MIT · Spec text CC BY 4.0 · <a href="https://github.com/open-resume-agent/open-resume-agent">Source</a></footer></body></html>

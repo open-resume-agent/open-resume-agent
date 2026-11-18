@@ -69,6 +69,29 @@ def test_two_default_views():
         for v in d["roleViews"]: v["default"] = True
     assert errs(mutate("veteran-logistics", f))
 
+# ORA résumé record (§2.1, v0.4)
+def test_resume_record_rejects_unknown_section():
+    assert any("interests" in e for e in errs(mutate("electrician", lambda d: d["resume"].update(interests=[{"name": "Fishing"}]))))
+
+def test_resume_record_allows_x_extension():
+    assert not errs(mutate("electrician", lambda d: d["resume"].update({"x-projects": [{"name": "Solar retrofit"}]})))
+
+def test_resume_record_rejects_unknown_work_field():
+    assert errs(mutate("electrician", lambda d: d["resume"]["work"][0].update(salary="90000")))
+
+def test_resume_work_needs_name_or_position():
+    def f(d):
+        w = d["resume"]["work"][0]; w.pop("name"); w.pop("position")
+    assert errs(mutate("electrician", f))
+
+def test_resume_dates_are_iso():
+    assert errs(mutate("electrician", lambda d: d["resume"]["work"][0].update(startDate="April 2022")))
+
+def test_v03_document_keeps_json_resume():
+    def f(d):
+        d["ora"] = "0.3"; d["resume"]["interests"] = [{"name": "Fishing"}]
+    assert not errs(mutate("electrician", f))
+
 def test_conformance_fixtures_exist():
     cases = json.loads((ROOT / "conformance" / "cases.json").read_text())
     for k, rel in cases["fixtures"].items():

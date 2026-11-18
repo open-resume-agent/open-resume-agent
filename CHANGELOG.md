@@ -1,6 +1,11 @@
 # Changelog
 
 ## Unreleased
+- **RFC 0000 (in discussion): ORA's own résumé record (v0.4).** SPEC §2.1 defines the `resume` fields (`basics`, `work`, `education`, `certificates`; rules RR1–RR4) and the schema validates them. JSON Resume becomes an export format (§20.3, rule O8). Breaking for v0.4 documents only: v0.2/v0.3 documents keep their JSON Resume object and stay valid
+  - Schema `$id` is now `/schema/v0.4/`; the v0.3 schema stays published from `schema/archive/`, and the site keeps `/ext/v0.3/`
+  - `build_md` keeps the version the source declares instead of relabelling it
+  - The JSON Resume export carries work `location` and `summary` and drops `x-` keys
+  - Examples declare `ora: "0.4"`. New conformance case `O8-json-resume-export` (49 cases). 8 new tests
 - `IMPLEMENTATIONS.md`: PopYourJob Builder is working (L1, signed agent files), no longer planned. No spec or tool changes
 - `glama.json` names the Glama directory maintainer, so the MCP server listing can be claimed and its Docker build configured. No spec or tool changes
 

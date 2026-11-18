@@ -46,7 +46,7 @@ def card(doc):
         "supportedInterfaces": [{"url": base or "https://example.invalid/a2a", "protocolBinding": "JSONRPC", "protocolVersion": "1.0"}],
         "capabilities": {
             "streaming": False,
-            "extensions": [{"uri": "https://openresumeagent.org/ext/v0.3", "description": "ORA document and rules",
+            "extensions": [{"uri": "https://openresumeagent.org/ext/v0.4", "description": "ORA document and rules",
                             "required": False, "params": {"document": ifs.get("jsonExport") or "/.well-known/resume-agent.json"}}],
         },
         "defaultInputModes": ["text/plain", "application/json"],
