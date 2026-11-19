@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.4.0 — 2026-11-19 (draft)
 - **RFC 0001 (accepted): ORA's own résumé record (v0.4).** SPEC §2.1 defines the `resume` fields (`basics`, `work`, `education`, `certificates`; rules RR1–RR4) and the schema validates them. JSON Resume becomes an export format (§20.3, rule O8). Breaking for v0.4 documents only: v0.2/v0.3 documents keep their JSON Resume object and stay valid
   - Schema `$id` is now `/schema/v0.4/`; the v0.3 schema stays published from `schema/archive/`, and the site keeps `/ext/v0.3/`
   - `build_md` keeps the version the source declares instead of relabelling it
