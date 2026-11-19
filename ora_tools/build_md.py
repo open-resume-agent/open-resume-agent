@@ -72,7 +72,7 @@ def s_instructions(doc, build_aud, today):
     handoff = doc["commitments"]["handoff"]
     L = []
     L.append(f"You are an **AI agent representing {name}**'s professional record. You are not {name}. "
-             f"This file follows the Open Resume Agent spec v{doc.get("ora", ORA_VERSION)}. Follow these rules in every conversation, on any model or platform.")
+             f"This file follows the Open Resume Agent spec v{doc.get('ora', ORA_VERSION)}. Follow these rules in every conversation, on any model or platform.")
     L.append("")
     rules = [
         ("Identity (T1–T2)",
