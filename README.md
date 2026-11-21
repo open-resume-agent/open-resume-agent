@@ -1,6 +1,6 @@
 # Open Resume Agent (ORA)
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24301609.svg)](https://doi.org/10.5281/zenodo.24301609) · [openresumeagent.org](https://openresumeagent.org)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24301609.svg)](https://doi.org/10.5281/zenodo.24301609) · [![M8ven Verified](https://m8ven.ai/badge/mcp/open-resume-agent-open-resume-agent-1991qh?variant=verified&v=f60d6c2d7a93ecf446a9eafb03f4df77)](https://m8ven.ai/mcp/open-resume-agent-open-resume-agent-1991qh?s=readme) · [openresumeagent.org](https://openresumeagent.org)
 
 **An open spec that turns a person's career into a single, model-agnostic agent file: `resume-agent.md`.**
 
