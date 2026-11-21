@@ -135,8 +135,15 @@ def test_mcp_server_stdio():
         async with stdio_client(params) as (r, w):
             async with ClientSession(r, w) as s:
                 await s.initialize()
-                tools = {t.name for t in (await s.list_tools()).tools}
+                listed = (await s.list_tools()).tools
+                tools = {t.name for t in listed}
                 assert {"ora_profile", "ora_render", "ora_list_views", "ora_fit_context", "ora_handoff"} <= tools
+                # every tool states all four hints explicitly; only render/handoff write (local files, never destructive)
+                writers = {"ora_render", "ora_handoff"}
+                for t in listed:
+                    hints = t.annotations.model_dump(by_alias=True, exclude_none=True) if t.annotations else {}
+                    assert hints == {"readOnlyHint": t.name not in writers, "destructiveHint": False,
+                                     "idempotentHint": t.name not in writers, "openWorldHint": False}, (t.name, hints)
                 res = await s.call_tool("ora_profile", {"audience": "verified_employer"})
                 prof = json.loads(res.content[0].text)
                 assert prof["audience"] == "recruiter"                      # clamped to ceiling
@@ -152,8 +159,8 @@ def test_mcp_server_stdio():
                 assert "represent_candidate" in prompts
     try:
         asyncio.run(run())
-    except BaseExceptionGroup as eg:  # surface the real error
-        raise eg.exceptions[0]
+    except Exception as eg:  # surface the real error (BaseExceptionGroup is not a builtin on Python 3.10)
+        raise getattr(eg, "exceptions", [eg])[0]
 
 
 if __name__ == "__main__":

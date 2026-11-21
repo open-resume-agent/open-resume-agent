@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+- MCP server: every tool now declares `readOnlyHint`, `destructiveHint`, `idempotentHint` and `openWorldHint`. `ora_list_views`, `ora_profile` and `ora_fit_context` are read-only. `ora_render` and `ora_handoff` write only to `ORA_OUT_DIR` and never overwrite or delete. Their descriptions now say what they write (`render-log.jsonl`, `handoffs.jsonl`). No spec or schema changes
+- Tests: the MCP test checks the tool annotations, and its failure on Python 3.10 now shows the real error instead of a `NameError`
+
 ## 0.4.1 — 2026-11-19
 - Fix: `ora_tools/build_md.py` failed to import on Python 3.10 and 3.11 (an f-string nested same-type quotes, which only Python 3.12 accepts). The package declares `requires-python >=3.10`. No spec or schema changes
 
