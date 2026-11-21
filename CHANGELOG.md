@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.4.3 — 2026-11-21
 - OpenSSF Best Practices passing badge (project 16978)
 - CI on GitHub Actions: `make check`, the tests on Python 3.10 and 3.12, a built-wheel smoke test, and ruff (lint and security checks); GitHub CodeQL code scanning. Workflows default to a read-only token. CONTRIBUTING requires tests for new behavior
 - Releases publish from GitHub: `publish.yml` uploads to PyPI with trusted publishing and lists the server in the MCP Registry with GitHub OIDC, so no tokens are stored
