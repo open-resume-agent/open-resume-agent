@@ -1,8 +1,8 @@
 """Agent-file (M1–M8), rendering (O1–O7) and MCP tests.  Run: python3 tests/test_agent_file.py"""
-import asyncio, datetime, json, os, pathlib, re, subprocess, sys, tempfile, zipfile
+import asyncio, datetime, json, os, pathlib, re, sys, tempfile, zipfile
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
-from ora_tools import ora_core as core, build_md, render, validate  # noqa: E402
+from ora_tools import build_md, render, validate  # noqa: E402
 
 TODAY = datetime.date(2026, 11, 17)
 SRC = {p.stem.split(".")[0]: json.loads(p.read_text()) for p in (ROOT / "examples").glob("*.resume-agent.json")}
@@ -68,7 +68,7 @@ def test_render_all_formats():
 def test_render_refuses_above_build():
     try:
         render.render(md_for("tech-executive"), "md", None, "verified_employer", None, TMP / "x.md", TODAY)
-        assert False, "should refuse"
+        raise AssertionError("should refuse")
     except PermissionError:
         pass
 
@@ -102,7 +102,7 @@ def test_json_resume_output_valid_shape():
     assert d["basics"]["name"] and d["work"] and d["meta"]["x-ora"]["audience"] == "public"
     try:
         render.render(md_for("research-scientist"), "json-resume", None, "public", None, TMP / "q.json", TODAY)
-        assert False, "format not enabled should be refused"
+        raise AssertionError("format not enabled should be refused")
     except ValueError:
         pass
 
@@ -160,7 +160,9 @@ def test_mcp_server_stdio():
     try:
         asyncio.run(run())
     except Exception as eg:  # surface the real error (BaseExceptionGroup is not a builtin on Python 3.10)
-        raise getattr(eg, "exceptions", [eg])[0]
+        if hasattr(eg, "exceptions"):
+            raise eg.exceptions[0] from eg
+        raise
 
 
 if __name__ == "__main__":

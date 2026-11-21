@@ -39,3 +39,17 @@ packages = ["ora_tools"]
 
 [tool.setuptools.package-data]
 ora_tools = ["schema.json"]
+
+[tool.ruff]
+line-length = 130
+target-version = "py310"
+
+[tool.ruff.lint]
+# pycodestyle, pyflakes, bugbear, pyupgrade, and bandit-style security checks
+select = ["E", "F", "W", "B", "UP", "S"]
+ignore = [
+  "S101",                  # assert is fine in tests
+  # The code base deliberately uses a compact style; these rules only restate it.
+  "E401", "E501", "E701", "E702",  # several imports or statements on one line, long lines
+  "E731", "E741",          # lambda assignments, short names like l
+]

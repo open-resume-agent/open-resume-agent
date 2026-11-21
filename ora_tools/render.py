@@ -6,7 +6,7 @@ Usage:
 Rules O1–O7 (SPEC §20): audience filtering, facts only from the record, effective credential status,
 no protected characteristics or photos, ATS-safe layout, traceable footer.
 """
-import argparse, datetime, html as htmllib, json, pathlib, sys
+import argparse, datetime, html as htmllib, json, pathlib
 from . import ora_core as core
 
 FORMATS = ("docx", "pdf", "html", "md", "txt", "json-resume")
@@ -21,7 +21,6 @@ def build_model(src, view_id=None, audience="public", template="modern", today=N
     doc = core.filter_doc(src, audience)  # O1
     view = core.pick_view(doc, view_id) if (view_id or doc.get("roleViews")) else None
     r = doc.get("resume", {}); b = r.get("basics", {})
-    pol = core.Policy(doc)
     sel = core.view_claims(doc, view)
     sel_ids = [c["id"] for c in sel]
     excluded = set(view.get("exclude", {}).get("claims", [])) if view else set()
@@ -229,7 +228,7 @@ def to_json_resume(m, src):
     if b.get("location"): basics["location"] = {k: v for k, v in b["location"].items() if k != "address"}
     basics["profiles"] = [{"network": h["platform"], "url": h["url"]} for h in doc["owner"].get("verifiedHandles", [])]
     work = []
-    for w, mx in zip(r.get("work", []), m["experience"]):
+    for w, mx in zip(r.get("work", []), m["experience"], strict=False):
         work.append({k: v for k, v in w.items() if k in ("name", "position", "location", "url", "startDate", "endDate", "summary")} | {"highlights": mx["bullets"]})
     out = {"$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json", "basics": basics, "work": work,
            "education": [{k: v for k, v in e.items() if not k.startswith("x-")} for e in r.get("education", [])],
@@ -283,7 +282,7 @@ def to_docx(m, path):
     def rule(p):
         if ats: return
         pPr = p._p.get_or_add_pPr(); bdr = OxmlElement("w:pBdr"); bot = OxmlElement("w:bottom")
-        for k, v in (("w:val", "single"), ("w:sz", "8"), ("w:space", "1"), ("w:color", "%02X%02X%02X" % ACCENT)): bot.set(qn(k), v)
+        for k, v in (("w:val", "single"), ("w:sz", "8"), ("w:space", "1"), ("w:color", "{:02X}{:02X}{:02X}".format(*ACCENT))): bot.set(qn(k), v)
         bdr.append(bot); pPr.append(bdr)
 
     def h1(t): p = d.add_paragraph(t.upper() if ats else t, style="Heading 1"); rule(p)
