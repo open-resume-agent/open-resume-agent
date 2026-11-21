@@ -21,7 +21,7 @@ The registry checks that the PyPI package exists and that its README contains
 `mcp-name: io.github.open-resume-agent/ora-mcp` (it does).
 ```bash
 brew install mcp-publisher  # or download the binary from the registry releases
-mcp-publisher validate      # checks server.json
+mcp-publisher validate      # checks server.json (description must be 100 characters or fewer)
 mcp-publisher login github  # sign in as a member of the open-resume-agent org
 mcp-publisher publish
 ```
