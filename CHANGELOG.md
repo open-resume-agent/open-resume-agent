@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+- CI on GitHub Actions: `make check`, the tests on Python 3.10 and 3.12, a built-wheel smoke test, and ruff (lint and security checks); GitHub CodeQL code scanning. Workflows default to a read-only token. CONTRIBUTING requires tests for new behavior
+- Releases publish from GitHub: `publish.yml` uploads to PyPI with trusted publishing and lists the server in the MCP Registry with GitHub OIDC, so no tokens are stored
+- README and `CITATION.cff` use the Zenodo all-versions DOI 10.5281/zenodo.24301608 (was the 0.3.1 version DOI). README badges for PyPI and the license
+- Lint fixes with no behavior change: unused imports and variables, explicit `zip(strict=False)`, `raise AssertionError` instead of `assert False` in tests
+
 ## 0.4.2 — 2026-11-21
 - MCP server: every tool now declares `readOnlyHint`, `destructiveHint`, `idempotentHint` and `openWorldHint`. `ora_list_views`, `ora_profile` and `ora_fit_context` are read-only. `ora_render` and `ora_handoff` write only to `ORA_OUT_DIR` and never overwrite or delete. Their descriptions now say what they write (`render-log.jsonl`, `handoffs.jsonl`). No spec or schema changes
 - Tests: the MCP test checks the tool annotations, and its failure on Python 3.10 now shows the real error instead of a `NameError`

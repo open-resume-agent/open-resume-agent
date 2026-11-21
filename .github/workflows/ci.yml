@@ -1,0 +1,48 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  check:
+    # Same as `make check` locally: generated files are fresh, examples validate, all tests pass.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: make check
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install -r requirements.txt build
+      - run: make validate test TODAY=2026-11-17
+      - name: The built wheel builds, validates and serves an agent file
+        run: |
+          python -m build --wheel
+          pip install "$(ls dist/*.whl)[mcp]"
+          cd /tmp
+          ora build "$GITHUB_WORKSPACE/examples/tech-executive.resume-agent.json" -o agent.md --build public
+          ora validate agent.md
+          ora render agent.md --format md -o resume.md && grep -q "Jane Doe" resume.md
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install ruff
+      - name: Lint and security checks (ruff, config in pyproject.toml)
+        run: ruff check ora_tools tools tests

@@ -197,7 +197,7 @@ def filter_doc(doc, audience):
                      if (("claim" not in r or r["claim"] in ids) and ("credential" not in r or r["credential"] in ids)
                          and ("skill" not in r or r["skill"] in ids) and ("path" not in r or get_ptr(out, r["path"]) is not None))]
     disc["never"] = [n for n in disc.get("never", []) if get_ptr(out, n) is not None]
-    for name, prof in list(out.get("profiles", {}).items()):
+    for prof in list(out.get("profiles", {}).values()):
         for key in ("boardCertifications", "certifications", "safetyCertifications", "registrations", "certificates", "barAdmissions", "foodSafety"):
             if key in prof: prof[key] = [i for i in prof[key] if i in ids]
         if prof.get("clearance") and prof["clearance"] not in ids: prof.pop("clearance")
