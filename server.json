@@ -5,12 +5,12 @@
   "description": "Serve an ORA resume agent file over MCP: filtered profile, role views, job-fit context, resume rendering (docx/pdf/html/md/json) and handoff.",
   "repository": { "url": "https://github.com/open-resume-agent/open-resume-agent", "source": "github" },
   "websiteUrl": "https://openresumeagent.org",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "packages": [
     {
       "registryType": "pypi",
       "identifier": "open-resume-agent",
-      "version": "0.4.1",
+      "version": "0.4.2",
       "runtimeHint": "uvx",
       "transport": { "type": "stdio" },
       "packageArguments": [

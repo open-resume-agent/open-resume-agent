@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "open-resume-agent"
-version = "0.4.1"
+version = "0.4.2"
 description = "Reference tools for Open Resume Agent (ORA): compile, validate and render model-agnostic resume agent files, and serve them over MCP."
 readme = "README.md"
 requires-python = ">=3.10"
